@@ -46,7 +46,7 @@ async def on_message(message):
                 if (code == "" or code is None):
                     await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
                 else:
-                    await message.channel.send('Mã Deck dã được giải!')
+                    await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     await message.channel.send(embed = deckCompiler(code))
         
 
