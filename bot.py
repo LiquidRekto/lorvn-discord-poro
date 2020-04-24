@@ -9,4 +9,4 @@ client = discord.Client()
 async def on_ready():
     print("Bot is ready!")
 
-client.run('NzAzMDgwNDY1MTUzNzg1ODU2.XqJkTA.9ONX0zHzGKSiF91aYvhT7Pju9gc')
+client.run(os.environ(['DISCORD_TOKEN']))
