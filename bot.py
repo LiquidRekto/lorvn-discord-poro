@@ -1,5 +1,6 @@
 import discord
 import os
+import card_identify
 
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
@@ -26,6 +27,8 @@ async def on_message(message):
                 else:
                     deckCompiler(code)
                     await message.channel.send('Mã Deck dã được giải!')
+        if message.content.startswith('!cardcodes'):
+            card_identify.retrieveCardsData()
         
 
         
