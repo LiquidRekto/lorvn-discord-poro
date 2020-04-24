@@ -8,7 +8,8 @@ from discord.ext import commands
 def cardParser(code):
     #amount = code[0]
     #cardCode = code[2:]
-    return CardCodeAndCount.from_card_string(code)
+    out = CardCodeAndCount.from_card_string(code)
+    return {out.card_code, out.count}
 
 def deckCompiler(deckcode):
     data = card_identify.cards_data
@@ -16,7 +17,7 @@ def deckCompiler(deckcode):
     for card in target.cards:
         #subject = cardParser(card)
         #print(f"{data[subject.code].Name}:{subject.amount} lá")
-        print(cardParser(card))
+        print(card)
 
 
 client = discord.Client()
