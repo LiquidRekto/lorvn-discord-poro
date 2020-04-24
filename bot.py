@@ -1,12 +1,13 @@
 import discord
 import os
 
-from twisted_fate import Deck
+from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
 def deckCompiler(deckcode):
-    target = Deck.decode(deckcode)
-    print(target.cards)
+    target = LoRDeck.from_deckcode(deckcode)
+    for card in target.cards:
+        print(card)
 
 client = discord.Client()
 
