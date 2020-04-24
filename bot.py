@@ -5,6 +5,13 @@ import card_identify
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
+
+
+def generateDeckPanel(context):
+    embed=discord.Embed(title="Thông tin Deck", description="Deck Code", color=0xd34e05)
+    embed.set_footer(text="Deck hay thiệt!")
+    context.send(embed=embed)
+
 def cardParser(code):
     src = str(code)
     amount = src[0]
@@ -12,7 +19,7 @@ def cardParser(code):
     return {"amount":amount, "cardCode":cardCode}
 
 def deckCompiler(deckcode):
-    outputmsg = ""
+    outputmsg = ">>>"
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
@@ -40,6 +47,7 @@ async def on_message(message):
                 else:
                     await message.channel.send('Mã Deck dã được giải!')
                     await message.channel.send(deckCompiler(code))
+                    generateDeckPanel(message.channel)
         
 
         
