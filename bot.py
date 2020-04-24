@@ -7,10 +7,10 @@ from discord.ext import commands
 
 
 
-def generateDeckPanel(context):
+def generateEmbed():
     embed=discord.Embed(title="Thông tin Deck", description="Deck Code", color=0xd34e05)
     embed.set_footer(text="Deck hay thiệt!")
-    context.send(embed=embed)
+    return embed
 
 def cardParser(code):
     src = str(code)
@@ -47,7 +47,7 @@ async def on_message(message):
                 else:
                     await message.channel.send('Mã Deck dã được giải!')
                     await message.channel.send(deckCompiler(code))
-                    generateDeckPanel(message.channel)
+                    await message.channel.say(embed=generateEmbed())
         
 
         
