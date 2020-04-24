@@ -8,7 +8,7 @@ from discord.ext import commands
 
 
 def generateEmbed(deckData, deckCode):
-    embed=discord.Embed(title="Thông tin Deck", description=f"Deck Code: {deckCode}", color=0xd34e05)
+    embed=discord.Embed(title="**Thông tin Deck**", description=f"Deck Code: {deckCode}", color=0xd34e05)
     embed.add_field(name="Chi tiết", value=deckData, inline=False)
     embed.set_footer(text="Deck hay thiệt!")
     return embed
@@ -25,7 +25,7 @@ def deckCompiler(deckcode):
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
         subject = cardParser(card)
-        chunkInfo = f"**{(data[subject['cardCode']])['Name']}:{subject['amount']} lá**"
+        chunkInfo = f"**{subject['amount']} lá **- {(data[subject['cardCode']])['Name']}"
         print(chunkInfo)
         outputmsg += f"{chunkInfo}\n"
     return generateEmbed(outputmsg, deckcode)
