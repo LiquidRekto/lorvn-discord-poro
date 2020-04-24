@@ -7,8 +7,9 @@ from discord.ext import commands
 
 
 
-def generateEmbed():
+def generateEmbed(deckData):
     embed=discord.Embed(title="Thông tin Deck", description="Deck Code", color=0xd34e05)
+    embed.add_field(name=f"{deckData}", value="", inline=False)
     embed.set_footer(text="Deck hay thiệt!")
     return embed
 
@@ -27,7 +28,7 @@ def deckCompiler(deckcode):
         chunkInfo = f"{(data[subject['cardCode']])['Name']}:{subject['amount']} lá"
         print(chunkInfo)
         outputmsg += f"{chunkInfo}\n"
-    return outputmsg
+    return generateEmbed(outputmsg)
 
 
 client = discord.Client()
