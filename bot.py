@@ -4,8 +4,9 @@ import os
 from twisted_fate import Deck
 from discord.ext import commands
 
-def deckCompiler():
-    print("Hi!")
+def deckCompiler(deckcode):
+    target = Deck.decode(deckcode)
+    print(target.cards)
 
 client = discord.Client()
 
@@ -16,10 +17,10 @@ async def on_message(message):
     else:
         if "uwu" in message.content.lower():
             await message.channel.send("UwU")
-        if "!deck" in message.content.lower():
-            await message.channel.send("Hiện tại chức năng tra Deck không khả dụng. Tui sẽ đem đến cho mấy bro sớm nhất có thể! OwO")
-        if message.content[0] == "!":
-            await message.channel.send("COMMAND INITIALIZED")
+        if message.content.startswith('!deck'):
+            ctx = message.content.split()
+            deckCompiler(ctx[1:])
+            await message.channel.send('Deck decoded!')
         
 
         
