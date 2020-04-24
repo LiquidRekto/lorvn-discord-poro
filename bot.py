@@ -20,7 +20,7 @@ def cardParser(code):
     return {"amount":amount, "cardCode":cardCode}
 
 def deckCompiler(deckcode):
-    outputmsg = ">>>"
+    outputmsg = ">>> "
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
