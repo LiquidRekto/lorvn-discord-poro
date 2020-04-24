@@ -47,7 +47,7 @@ async def on_message(message):
                 else:
                     await message.channel.send('Mã Deck dã được giải!')
                     await message.channel.send(deckCompiler(code))
-                    await message.channel.say(embed=generateEmbed())
+                    await message.channel.send(embed=generateEmbed())
         
 
         
