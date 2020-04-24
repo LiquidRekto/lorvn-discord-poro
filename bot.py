@@ -18,6 +18,6 @@ async def on_message(message):
         elif "!deck" in message.content.lower():
             await message.channel.send("Hiện tại chức năng tra Deck không khả dụng. Tui sẽ đem đến cho mấy bro sớm nhất có thể! OwO")
         elif (message.content.startsWith("!")):
-            await message.channel.send(message.author + " AWAITING FUNCTION")
+            await message.channel.send(f"{message.author.name} -> AWAITING FUNCTION")
 
 client.run(os.environ['DISCORD_TOKEN'])
