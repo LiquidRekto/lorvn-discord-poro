@@ -6,18 +6,17 @@ from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
 def cardParser(code):
-    #amount = code[0]
-    #cardCode = code[2:]
-    out = CardCodeAndCount.from_card_string(code)
-    return {out.card_code, out.count}
+    src = str(code)
+    amount = src[0]
+    cardCode = src[2:]
+    return {amount, cardCode}
 
 def deckCompiler(deckcode):
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
-        #subject = cardParser(card)
-        #print(f"{data[subject.code].Name}:{subject.amount} lá")
-        print(cardParser(card))
+        subject = cardParser(card)
+        print(f"{data[subject.code].Name}:{subject.amount} lá")
 
 
 client = discord.Client()
