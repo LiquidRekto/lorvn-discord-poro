@@ -16,7 +16,7 @@ def deckCompiler(deckcode):
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
         subject = cardParser(card)
-        print(f"{data[subject.code].Name}:{subject.amount} lá")
+        print(f"{data[subject.cardCode].Name}:{subject.amount} lá")
 
 
 client = discord.Client()
