@@ -17,7 +17,7 @@ def deckCompiler(deckcode):
     for card in target.cards:
         #subject = cardParser(card)
         #print(f"{data[subject.code].Name}:{subject.amount} lá")
-        print(card)
+        print(cardParser(card))
 
 
 client = discord.Client()
