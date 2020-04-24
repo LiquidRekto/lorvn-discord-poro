@@ -17,7 +17,7 @@ def deckCompiler(deckcode):
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
         subject = cardParser(card)
-        chunkInfo = f"{data[subject['cardCode']].Name}:{subject['amount']} lá"
+        chunkInfo = f"{(data[subject['cardCode']])['name']}:{subject['amount']} lá"
         print(chunkInfo)
         outputmsg += f"{chunkInfo}\n"
     return outputmsg
