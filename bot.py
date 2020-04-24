@@ -19,7 +19,8 @@ async def on_message(message):
             await message.channel.send("UwU")
         if message.content.startswith('!deck'):
             ctx = message.content.split()
-            deckCompiler(ctx[1:])
+            for code in ctx[1:]:
+                deckCompiler(code)
             await message.channel.send('Deck decoded!')
         
 
