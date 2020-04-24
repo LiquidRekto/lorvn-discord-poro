@@ -5,10 +5,17 @@ import card_identify
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
+def cardParser(code):
+    amount = code[0]
+    cardCode = code[2:]
+    return { "amount":amount, "code":cardCode}
+
 def deckCompiler(deckcode):
+    data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
-        print(card)
+        subject = cardParser(card)
+        print(f"{data[subject.code].Name}:{subject.amount} lá")
 
 client = discord.Client()
 
@@ -27,8 +34,6 @@ async def on_message(message):
                 else:
                     deckCompiler(code)
                     await message.channel.send('Mã Deck dã được giải!')
-        if message.content.startswith('!cardcodes'):
-            card_identify.retrieveCardsData()
         
 
         
