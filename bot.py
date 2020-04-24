@@ -9,7 +9,7 @@ def cardParser(code):
     src = str(code)
     amount = src[0]
     cardCode = src[2:]
-    return {amount, cardCode}
+    return {"amount":amount, "cardCode":cardCode}
 
 def deckCompiler(deckcode):
     data = card_identify.cards_data
