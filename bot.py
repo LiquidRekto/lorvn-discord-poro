@@ -8,8 +8,9 @@ from discord.ext import commands
 
 
 def generateEmbed(deckData):
+    dat = deckData
     embed=discord.Embed(title="Thông tin Deck", description="Deck Code", color=0xd34e05)
-    embed.add_field(name=f"{deckData}", value="", inline=False)
+    embed.add_field(name=f"{dat}", value="", inline=False)
     embed.set_footer(text="Deck hay thiệt!")
     return embed
 
@@ -48,7 +49,6 @@ async def on_message(message):
                 else:
                     await message.channel.send('Mã Deck dã được giải!')
                     await message.channel.send(deckCompiler(code))
-                    await message.channel.send(embed=generateEmbed())
         
 
         
