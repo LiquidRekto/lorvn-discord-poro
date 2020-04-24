@@ -12,11 +12,15 @@ def cardParser(code):
     return {"amount":amount, "cardCode":cardCode}
 
 def deckCompiler(deckcode):
+    outputmsg = ""
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     for card in target.cards:
         subject = cardParser(card)
-        print(f"{data[subject.cardCode].Name}:{subject.amount} lá")
+        chunkInfo = f"{data[subject['cardCode']].Name}:{subject['amount']} lá"
+        print(chunkInfo)
+        outputmsg += f"{chunkInfo}\n"
+    return outputmsg
 
 
 client = discord.Client()
@@ -34,8 +38,8 @@ async def on_message(message):
                 if (code == "" or code is None):
                     await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
                 else:
-                    deckCompiler(code)
                     await message.channel.send('Mã Deck dã được giải!')
+                    await message.channel.send(deckCompiler(code))
         
 
         
