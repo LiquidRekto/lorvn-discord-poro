@@ -64,14 +64,14 @@ async def on_message(message):
                     await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
                 else:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
-                    await message.channel.send(embed = deckCompiler(code))
-        if message.content.startswith('!wallet'):
-            wallet = db_getter.addUserEconomyData(message.author, 0)
-            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
+                    await message.channel.send(embed = deckCompiler(code))       
         if "admin" in [y.name.lower() for y in message.author.roles]:
             if message.content.startswith('$clear'):
                 print(str(message.author.roles))
                 print(str(message.channel))
+            if message.content.startswith('!wallet'):
+                wallet = db_getter.addUserEconomyData(message.author, 0)
+                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
             
                 
 
