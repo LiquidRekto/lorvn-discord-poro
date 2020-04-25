@@ -10,7 +10,8 @@ def addUserEconomyData(discord, amount):
     cur.execute("SELECT id_num FROM id_get")
     results = cur.fetchone()
     id = results[0]
-    cur.execute("UPDATE id_get SET id_num=%s",(id+1))
+    new_id = id + 1
+    cur.execute("UPDATE id_get SET id_num=%s",(new_id))
     cur.execute("INSERT INTO economy VALUES(%s %s %s)",
     (id, discord, amount))
     return {"id":id }
