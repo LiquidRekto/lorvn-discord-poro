@@ -67,7 +67,7 @@ async def on_message(message):
             print(str(message.author.roles))
             print(str(message.channel))
             if "admin" in [y.name.lower() for y in message.author.roles]:
-                await message.channel.send(f"@{message.author} Xin chào admin!")
+                await message.channel.send("Xin chào admin!".format(message.author.mention))
            # if bool(message.member.roles.get('admin')):
                 #await message.channel.reply('Xin chào admin')
 
