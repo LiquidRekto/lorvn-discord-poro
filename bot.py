@@ -63,8 +63,10 @@ async def on_message(message):
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     await message.channel.send(embed = deckCompiler(code))
         if message.content.startswith('$clear'):
-            if message.author.server_permissions.administrator:
-                await message.channel.send('Xin chào admin!')
+            print(message.server.roles)
+            
+           # if message.author.server_permissions.administrator:
+               # await message.channel.send('Xin chào admin!')
 
         
 
