@@ -44,7 +44,7 @@ def deckCompiler(deckcode):
     return generateEmbed(outputmsg, deckcode)
 
 
-
+bot = commands.Bot(command_prefix='%')
 client = discord.Client()
 
 @client.event
@@ -64,14 +64,17 @@ async def on_message(message):
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     await message.channel.send(embed = deckCompiler(code))
         if message.content.startswith('$clear'):
-            print(str(message.author))
+            print(str(message.author.roles))
             print(str(message.channel))
-            if bool(message.member.roles.get('admin')):
-                await message.channel.reply('Xin chào admin')
+           # if bool(message.member.roles.get('admin')):
+                #await message.channel.reply('Xin chào admin')
 
            # if message.author.server_permissions.administrator:
                # await message.channel.send('Xin chào admin!')
 
+@bot.command()
+async def test (ctx):
+    print(ctx.message.member.)
         
 
         
