@@ -65,16 +65,14 @@ async def on_message(message):
                 else:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     await message.channel.send(embed = deckCompiler(code))
-        if message.content.startswith('$clear'):
-            print(str(message.author.roles))
-            print(str(message.channel))
-            if "admin" in [y.name.lower() for y in message.author.roles]:
-                await message.channel.send(f"{message.author.mention} Xin chào admin!")
-           # if bool(message.member.roles.get('admin')):
-                #await message.channel.reply('Xin chào admin')
-
-           # if message.author.server_permissions.administrator:
-               # await message.channel.send('Xin chào admin!')
+        if message.content.startswith('!wallet'):
+            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {db_getter.addUserEconomyData()}")
+        if "admin" in [y.name.lower() for y in message.author.roles]:
+            if message.content.startswith('$clear'):
+                print(str(message.author.roles))
+                print(str(message.channel))
+            
+                
 
 #@bot.command()
 #async def test (ctx):
