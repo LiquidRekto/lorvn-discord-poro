@@ -6,9 +6,11 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-def addUserEconomyData():
+def addUserEconomyData(discord, amount):
     cur.execute("SELECT id_num FROM id_get")
     results = cur.fetchone()
-    return results
-    #cur.execute("INSERT INTO economy VALUES(%s %s %s)",
-    #(id, discord, currency))
+    id = results["id_num"]
+    cur.execute("UPDATE id_get SET id_num=%s",(id+1))
+    cur.execute("INSERT INTO economy VALUES(%s %s %s)",
+    (id, discord, amount))
+    return {"id":id }
