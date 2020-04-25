@@ -6,6 +6,19 @@ from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
 
+# commands:
+#   !deck <deckcode> <locale>, !wallet <(status, buy, pass, balance)>, !report <user> <reason>
+#   !sharedeck <deckcode> <locale>
+# 
+# admin commands: 
+#   $kick <user> <reason>, $mute <user> <time> <reason>, $slowmode <channel> <cooldown>
+#   $announcement <description>, $warn <user> <reason>, $ban <user> <time> <reason>
+
+def AdminRestriction(msg, userRole):
+    output = {"isAdmin":False, "extra_msg":""}
+    if msg.channel.author.mention == discord.Permissions.administrator:
+        output["isAdmin"] = True
+    return output
 
 def generateEmbed(deckData, deckCode):
     embed=discord.Embed(title="**Thông tin Deck**", description=f"Deck Code: {deckCode}", color=0xd34e05)
@@ -43,11 +56,16 @@ async def on_message(message):
         if message.content.startswith('!deck'):
             ctx = message.content.split()
             for code in ctx[1:]:
+                print(code)
                 if (code == "" or code is None):
                     await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
                 else:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     await message.channel.send(embed = deckCompiler(code))
+        if message.content.startswith('$clear'):
+            if message.author.server_permissions.administrator:
+                await message.channel.send('Xin chào admin!')
+
         
 
         
