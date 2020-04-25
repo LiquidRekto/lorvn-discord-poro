@@ -72,9 +72,9 @@ async def on_message(message):
            # if message.author.server_permissions.administrator:
                # await message.channel.send('Xin chào admin!')
 
-@bot.command()
-async def test (ctx):
-    print(ctx.message.member.)
+#@bot.command()
+#async def test (ctx):
+#print(ctx.message.member.)
         
 
         
