@@ -1,6 +1,8 @@
 import discord
 import os
 import card_identify
+import db_getter
+
 
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
