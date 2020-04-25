@@ -66,7 +66,7 @@ async def on_message(message):
         if message.content.startswith('$clear'):
             print(str(message.author))
             print(str(message.channel))
-            if message.member.roles.get('admin'):
+            if bool(message.member.roles.get('admin')):
                 await message.channel.reply('Xin chào admin')
 
            # if message.author.server_permissions.administrator:
