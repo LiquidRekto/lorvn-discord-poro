@@ -70,7 +70,7 @@ async def on_message(message):
                 print(str(message.author.roles))
                 print(str(message.channel))
             if message.content.startswith('!wallet'):
-                wallet = db_getter.addUserEconomyData(message.author, 0)
+                wallet = db_getter.addUserEconomyData(str(message.author), 0)
                 await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
             
                 
