@@ -54,25 +54,42 @@ async def on_message(message):
     if message.author.bot:
         return
     else:
-        if "uwu" in message.content.lower():
+        if "uwu" in message.content.lower(): #Tra loi UwU
             await message.channel.send("UwU")
         if message.content.startswith('!deck'):
             ctx = message.content.split()
-            for code in ctx[1:]:
-                print(code)
-                if (code == "" or code is None):
-                    await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
-                else:
+            if (len(ctx) < 2):
+                await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
+            else:
+                for code in ctx[1:]:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
-                    await message.channel.send(embed = deckCompiler(code))       
+                    await message.channel.send(embed = deckCompiler(code))   
+        # Check neu do la admin (thuc hien chuc  nang duoi)    
         if "admin" in [y.name.lower() for y in message.author.roles]:
             if message.content.startswith('$clear'):
                 print(str(message.author.roles))
                 print(str(message.channel))
+                # Check vi
             if message.content.startswith('!wallet'):
-                wallet = db_getter.addUserEconomyData(str(message.author), 0)
-                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
-            
+                ctx = message.content.split()
+                if (len(ctx < 2)):
+                    wallet_check = db_getter.checkWalletInfo(message.author)
+                    if (wallet_check == 'non-exist'):
+                        await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
+                else:
+                    for status in ctx[1:]:
+                        if status == 'create':
+                            wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                            if wallet == 'duplicated':
+                                await message.channel.send('Bạn đã tạo ví rồi!')
+                            else:
+                                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
+                        if status == 'destroy':
+                            await message.channel.send('Hiện tại bạn không thể xoá ví!')
+            if message.content.startswith('$reward'):
+                ctx = message.content.split()
+                
+
                 
 
 #@bot.command()
