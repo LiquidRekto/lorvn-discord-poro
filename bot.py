@@ -73,13 +73,13 @@ async def on_message(message):
             if message.content.startswith('!wallet'):
                 ctx = message.content.split()
                 if (len(ctx) < 2):
-                    wallet_check = db_getter.checkWalletInfo(message.author)
+                    wallet_check = db_getter.checkWalletInfo(str(message.author))
                     if (wallet_check == 'non-exist'):
                         await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
                 else:
                     for status in ctx[1:]:
                         if status == 'create':
-                            wallet = db_getter.addUserEconomyData(message.author, 0)
+                            wallet = db_getter.addUserEconomyData(str(message.author), 0)
                             if wallet == 'duplicated':
                                 await message.channel.send('Bạn đã tạo ví rồi!')
                             else:
