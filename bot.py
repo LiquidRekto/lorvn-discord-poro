@@ -7,13 +7,12 @@ import db_getter
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
-inAdmin = os.environ['ADMIN_1']
-outAdmin = os.environ['ADMIN_2']
+inAdmin = os.environ['ADMIN']
 
 def authorIsAdmin(msg):
     identified = False
     for role in msg.author.roles:
-        if (role.name == "admin") or (role.name == inAdmin) or (role.name == outAdmin):
+        if (role.name == "admin") or (role.name == inAdmin):
             identified = True
             return True
     if identified == False:
