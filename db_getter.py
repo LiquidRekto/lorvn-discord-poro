@@ -33,7 +33,7 @@ def awardUser(discord, amount):
     else:
         cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
         currentAmnt = cur.fetchone()
-        newAmnt = currentAmnt[0] + amount
+        newAmnt = currentAmnt[0] + int(amount)
         cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (discord, newAmnt))
         conn.commit()
         return {"user":discord, "snax":amount}
