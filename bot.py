@@ -10,11 +10,16 @@ from discord.ext import commands
 inAdmin = os.environ['ADMIN_1']
 outAdmin = os.environ['ADMIN_2']
 
-def authorIsAdmin(authorsrc):
-    if "admin" in [y.name.lower() for y in authorsrc] or inAdmin in [y.name.lower() for y in authorsrc] or outAdmin in [y.name.lower() for y in authorsrc]:
-        return True
-    else:
-        return False
+def authorIsAdmin(msg):
+    #if "admin" in [y.name.lower() for y in authorsrc] or inAdmin in [y.name.lower() for y in authorsrc] or outAdmin in [y.name.lower() for y in authorsrc]:
+    #    return True
+   # else:
+    #    return False
+    for role in msg.author.roles:
+        if (role == "admin") or (role == inAdmin) or (role == outAdmin):
+            return True
+        else:
+            return False
 
 
 # commands:
@@ -104,7 +109,7 @@ async def on_message(message):
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
         # Check neu do la admin (thuc hien chuc nang duoi)    
-        if authorIsAdmin(message.author.roles):
+        if authorIsAdmin(message):
             if message.content.startswith('$clear'):
                 print(str(message.author.roles))
                 print(str(message.channel))
