@@ -136,14 +136,14 @@ async def on_message(message):
                     for miss in missing_contents:
                         missers += "{} ".format(miss)
                     msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Thiếu {}".format(missers)
-                    await message.content.send(f"{message.author.mention} %s" % msg)
+                    await message.channel.send(f"{message.author.mention} %s" % msg)
                 else:
                     content = db_getter.awardUser(ctx[1],ctx[2])
                     if content == 'user-not-exist':
                         msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại!"
-                        await message.content.send(f"{message.author.mention} %s" % msg)
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
-                        await message.content.send(f"{message.author.mention} Chuyển thưởng thành công!")
+                        await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
 
                 
 
