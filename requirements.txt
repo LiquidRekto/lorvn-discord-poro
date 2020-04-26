@@ -1,4 +1,4 @@
 requests
 discord
-lor-deckcodes
+lor-deckcodes==1.0.0
 psycopg2
