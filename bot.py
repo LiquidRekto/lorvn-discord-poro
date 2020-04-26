@@ -60,7 +60,7 @@ async def on_message(message):
         if message.content.startswith('!deck'):
             ctx = message.content.split()
             if (len(ctx) < 2):
-                await message.channel.send('Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!')
+                await message.channel.send(f"{message.author.mention} Hổng có gì để xem hết... Bạn vui lòng đưa mình code ạ!")
             else:
                 for code in ctx[1:]:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
