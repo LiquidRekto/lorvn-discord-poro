@@ -64,44 +64,46 @@ async def on_message(message):
             else:
                 for code in ctx[1:]:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
-                    await message.channel.send(embed = deckCompiler(code))   
+                    await message.channel.send(embed = deckCompiler(code))  
+        if message.content.startswith('!wallet'):
+            ctx = message.content.split()
+            if (len(ctx) < 2):
+                wallet_check = db_getter.checkWalletInfo(str(message.author))
+                if (wallet_check == 'non-exist'):
+                    await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
+                else:
+                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])                   
+                    await message.channel.send(f"{message.author.mention} %s" % msg)
+            else:
+                for status in ctx[1:]:
+                    if status == 'create':
+                        wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                        if wallet == 'duplicated':
+                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
+                        else:
+                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
+                    if status == 'destroy':
+                        await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
+                    if status == 'snax':
+                        snax = db_getter.getSnaxInfo(str(message.author))
+                        if (snax == 'non-exist'):
+                            msg = """Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n
+                            Tạo ví mới ngay bằng cách nhập !wallet create
+                            """
+                            await message.channel.send(f"{message.author.mention} %s" % msg)
+                        else:
+                            await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
+                    if status == 'help':
+                        msg = "*\nCác lệnh liên quan đến **!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
+                        await message.channel.send(f"{message.author.mention} %s" % msg) 
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if "admin" in [y.name.lower() for y in message.author.roles]:
             if message.content.startswith('$clear'):
                 print(str(message.author.roles))
                 print(str(message.channel))
                 # Check vi
-            if message.content.startswith('!wallet'):
-                ctx = message.content.split()
-                if (len(ctx) < 2):
-                    wallet_check = db_getter.checkWalletInfo(str(message.author))
-                    if (wallet_check == 'non-exist'):
-                        await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
-                    else:
-                        msg = """\n Thông tin ví: \n
-                        ID của ví: {} \n
-                        Số Snax hiện có: {}
-                        """.format(wallet_check["id"],wallet_check["snax"])
-                        await message.channel.send(f"{message.author.mention} %s" % msg)
-                else:
-                    for status in ctx[1:]:
-                        if status == 'create':
-                            wallet = db_getter.addUserEconomyData(str(message.author), 0)
-                            if wallet == 'duplicated':
-                                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập !wallet để xem thông tin về ví của bạn hoặc !wallet help để biết thêm một số lệnh khác!")
-                            else:
-                                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
-                        if status == 'destroy':
-                            await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
-                        if status == 'snax':
-                            snax = db_getter.getSnaxInfo(str(message.author))
-                            if (snax == 'non-exist'):
-                                msg = """Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n
-                                Tạo ví mới ngay bằng cách nhập !wallet create
-                                """
-                                await message.channel.send(f"{message.author.mention} %s" % msg)
-                            else:
-                                await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
+            
+
 
                             
             if message.content.startswith('$reward'):
