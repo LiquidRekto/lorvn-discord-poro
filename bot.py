@@ -87,9 +87,7 @@ async def on_message(message):
                     if status == 'snax':
                         snax = db_getter.getSnaxInfo(str(message.author))
                         if (snax == 'non-exist'):
-                            msg = """Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n
-                            Tạo ví mới ngay bằng cách nhập !wallet create
-                            """
+                            msg = "Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n Tạo ví mới ngay bằng cách nhập **!wallet create**"
                             await message.channel.send(f"{message.author.mention} %s" % msg)
                         else:
                             await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
