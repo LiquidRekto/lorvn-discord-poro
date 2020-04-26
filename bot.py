@@ -15,6 +15,7 @@ def authorIsAdmin(msg):
     #    return True
    # else:
     #    return False
+    print(msg.author.roles)
     for role in msg.author.roles:
         if (role == "admin") or (role == inAdmin) or (role == outAdmin):
             return True
