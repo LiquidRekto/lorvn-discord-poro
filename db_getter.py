@@ -27,7 +27,7 @@ def addUserEconomyData(discord, amount):
 
 def awardUser(discord, amount):
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
-    user = (cur.fetchone())[0]
+    user = cur.fetchone()
     if (user == None):
         return "user-not-exist"
     else:
