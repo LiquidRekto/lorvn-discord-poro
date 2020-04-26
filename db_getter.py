@@ -30,6 +30,8 @@ def awardUser(discord, amount):
     user = cur.fetchone()
     if (user == None):
         return "user-not-exist"
+    elif (len(amount) > 10):
+        return "exceeded-number"
     else:
         cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
         currentAmnt = cur.fetchone()
