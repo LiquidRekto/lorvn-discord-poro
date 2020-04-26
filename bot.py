@@ -50,7 +50,8 @@ def deckCompiler(deckcode):
     outputmsg = ">>> "
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
-    for card in target.cards:
+    card_list = list(target)
+    for card in card_list:
         subject = cardParser(card)
         chunkInfo = f"**{subject['amount']} lá **- {(data[subject['cardCode']])['Name']}"
         print(chunkInfo)
