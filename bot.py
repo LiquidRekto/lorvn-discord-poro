@@ -7,6 +7,15 @@ import db_getter
 from lor_deckcodes import LoRDeck, CardCodeAndCount
 from discord.ext import commands
 
+inAdmin = os.environ['ADMIN_1']
+outAdmin = os.environ['ADMIN_2']
+
+def authorIsAdmin(authorsrc):
+    if "admin" in [y.name.lower() for y in authorsrc] or inAdmin in [y.name.lower() for y in authorsrc] or outAdmin in [y.name.lower() for y in authorsrc]:
+        return True
+    else:
+        return False
+
 
 # commands:
 #   !deck <deckcode> <locale>, !wallet <(status, buy, pass, balance)>, !report <user> <reason>
@@ -92,20 +101,50 @@ async def on_message(message):
                         else:
                             await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
                     if status == 'help':
-                        msg = "*\nCác lệnh liên quan đến **!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
+                        msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
         # Check neu do la admin (thuc hien chuc nang duoi)    
-        if "admin" in [y.name.lower() for y in message.author.roles]:
+        if authorIsAdmin(message.author.roles):
             if message.content.startswith('$clear'):
                 print(str(message.author.roles))
                 print(str(message.channel))
                 # Check vi
+
+            if message.content.startswith('$ban'):
+                print('ban')
+
+            if message.content.startswith('$mute'):
+                print('mute')
+
+            if message.content.startswith('$slowmode'):
+                print('slow')
             
 
 
                             
             if message.content.startswith('$reward'):
+                REQUIRED_LENGTH = 3
+                contents = ['base','<user>','<amount>']
                 ctx = message.content.split()
+                if (len(ctx) < 3):
+                    missers = ""
+                    TRACK = len(ctx)
+                    missing_contents = []
+                    for num in contents:
+                        if contents.index(num) > (TRACK - 1):
+                            missing_contents.append(num)
+                    for miss in missing_contents:
+                        missers += "{} ".format(miss)
+                    msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Thiếu {}".format(missers)
+                    await message.content.send(f"{message.author.mention} %s" % msg)
+                else:
+                    content = db_getter.awardUser(ctx[1],ctx[2])
+                    if content == 'user-not-exist':
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại!"
+                        await message.content.send(f"{message.author.mention} %s" % msg)
+                    else:
+                        await message.content.send(f"{message.author.mention} Chuyển thưởng thành công!")
+
                 
 
                 

@@ -26,8 +26,20 @@ def addUserEconomyData(discord, amount):
         return 'duplicated'
 
 def awardUser(discord, amount):
-    cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (discord, amount))
-    conn.commit()
+    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
+    user = (cur.fetchone())[0]
+    if (user == None):
+        return "user-not-exist"
+    else:
+        cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
+        currentAmnt = cur.fetchone()
+        newAmnt = currentAmnt[0] + amount
+        cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (discord, newAmnt))
+        conn.commit()
+        return {"user":discord, "snax":amount}
+
+def fineUser(discord, amount):
+    print()
 
 def checkWalletInfo(discord):
     cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))
