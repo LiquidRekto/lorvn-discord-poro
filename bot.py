@@ -79,7 +79,7 @@ async def on_message(message):
                 else:
                     for status in ctx[1:]:
                         if status == 'create':
-                            wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                            wallet = db_getter.addUserEconomyData(message.author, 0)
                             if wallet == 'duplicated':
                                 await message.channel.send('Bạn đã tạo ví rồi!')
                             else:
