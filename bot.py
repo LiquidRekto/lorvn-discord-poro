@@ -4,7 +4,7 @@ import card_identify
 import db_getter
 
 
-from lor_deckcodes import LoRDeck, CardCodeAndCount
+from lor_deckcodes import LoRDeck
 from discord.ext import commands
 
 inAdmin = os.environ['ADMIN']
