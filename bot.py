@@ -11,17 +11,21 @@ inAdmin = os.environ['ADMIN_1']
 outAdmin = os.environ['ADMIN_2']
 
 def authorIsAdmin(msg):
+    identified = False
     #if "admin" in [y.name.lower() for y in authorsrc] or inAdmin in [y.name.lower() for y in authorsrc] or outAdmin in [y.name.lower() for y in authorsrc]:
     #    return True
    # else:
     #    return False
     print(msg.author.roles)
     for role in msg.author.roles:
+
         print(role.name)
         if (role == "admin") or (role == inAdmin) or (role == outAdmin):
+            identified = True
             return True
-        else:
-            return False
+    if identified == False:
+        return False
+        
 
 
 # commands:
