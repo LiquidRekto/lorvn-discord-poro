@@ -30,7 +30,17 @@ def awardUser(discord, amount):
     conn.commit()
 
 def checkWalletInfo(discord):
-    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % (discord))
+    cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
+    else:
+        return {"id":check[1], "snax":check[2]}
+
+def getSnaxInfo(discord):
+    cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
+    check = cur.fetchone()
+    if (check == None):
+        return 'non-exist'
+    else:
+        return {"snax": check[0]}
