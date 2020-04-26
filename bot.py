@@ -72,7 +72,7 @@ async def on_message(message):
                 # Check vi
             if message.content.startswith('!wallet'):
                 ctx = message.content.split()
-                if (len(ctx < 2)):
+                if (len(ctx) < 2):
                     wallet_check = db_getter.checkWalletInfo(message.author)
                     if (wallet_check == 'non-exist'):
                         await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
