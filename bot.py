@@ -8,8 +8,6 @@ from lor_deckcodes import LoRDeck
 from discord.ext import commands
 
 inAdmin = os.environ['ADMIN']
-deck = LoRDeck.from_deckcode('CEBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCBIFAEAQCBAA')
-print(list(deck))
 
 def authorIsAdmin(msg):
     identified = False
@@ -79,7 +77,7 @@ async def on_message(message):
             else:
                 for code in ctx[1:]:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
-                    #await message.channel.send(embed = deckCompiler(code))  
+                    await message.channel.send(embed = deckCompiler(code))  
         if message.content.startswith('!wallet'):
             ctx = message.content.split()
             if (len(ctx) < 2):
