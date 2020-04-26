@@ -78,7 +78,8 @@ async def on_message(message):
                 for code in ctx[1:]:
                     await message.channel.send('Mã Deck dã được giải rồi! Yay~')
                     #await message.channel.send(embed = deckCompiler(code))  
-                    print(code)
+                    deck = LoRDeck.from_deckcode('CEBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCBIFAEAQCBAA')
+                    print(list(deck))
         if message.content.startswith('!wallet'):
             ctx = message.content.split()
             if (len(ctx) < 2):
