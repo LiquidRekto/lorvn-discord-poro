@@ -7,7 +7,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
 def addUserEconomyData(discord, amount):
-    cur.execute("SELECT discord FROM economy WHERE discord = %s" % discord)
+    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     check = cur.fetchone()
     if check == None:
         cur.execute("SELECT id_num FROM id_get")
@@ -26,11 +26,11 @@ def addUserEconomyData(discord, amount):
         return 'duplicated'
 
 def awardUser(discord, amount):
-    cur.execute("UPDATE economy SET snax = %s WHERE discord = %s" % (discord, amount))
+    cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (discord, amount))
     conn.commit()
 
 def checkWalletInfo(discord):
-    cur.execute("SELECT discord FROM economy WHERE discord = %s" % (discord))
+    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
