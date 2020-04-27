@@ -110,8 +110,10 @@ async def on_message(message):
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if authorIsAdmin(message):
             if message.content.startswith('$clear'):
-                print(str(message.author.roles))
-                print(str(message.channel))
+                msg = []
+                async for x in client.logs_from(message.channel, limit = 5):
+                    msg.append(x)
+                await client.delete_messages(msg)
                 # Check vi
 
             if message.content.startswith('$ban'):
@@ -148,6 +150,29 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
+            
+            if message.content.startswith('$fine'):
+                REQUIRED_LENGTH = 3
+                contents = ['base','<user>','<amount>']
+                ctx = message.content.split()
+                if (len(ctx) < 3):
+                    missers = ""
+                    TRACK = len(ctx)
+                    missing_contents = []
+                    for num in contents:
+                        if contents.index(num) > (TRACK - 1):
+                            missing_contents.append(num)
+                    for miss in missing_contents:
+                        missers += "{} ".format(miss)
+                    msg = "\nLệnh phạt đã bị huỷ! \nLí do: Thiếu {}".format(missers)
+                    await message.channel.send(f"{message.author.mention} %s" % msg)
+                else:
+                    content = db_getter.awardUser(ctx[1],ctx[2])
+                    if content == 'user-not-exist':
+                        msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
+                    else:
+                        await message.channel.send(f"{message.author.mention} Phạt người chơi thành công!")
 
                 
 
