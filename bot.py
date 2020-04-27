@@ -131,7 +131,7 @@ async def on_message(message):
 
 
                             
-            if message.content.startswith('$reward'):
+            if message.content.startswith('&reward'):
                 REQUIRED_LENGTH = 3
                 contents = ['base','<user>','<amount>']
                 ctx = message.content.split()
@@ -160,7 +160,7 @@ async def on_message(message):
                     else:
                         await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
             
-            if message.content.startswith('$fine'):
+            if message.content.startswith('&fine'):
                 REQUIRED_LENGTH = 3
                 contents = ['base','<user>','<amount>']
                 ctx = message.content.split()
