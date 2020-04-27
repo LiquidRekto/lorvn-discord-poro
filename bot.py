@@ -112,7 +112,7 @@ async def on_message(message):
             if message.content.startswith('$clear'):
                 con = message.content.split()
                 msg = []
-                lists = await message.channel.history(limit=int(con)).flatten()
+                lists = await message.channel.history(limit=int(con[1])).flatten()
                 for x in lists:
                     msg.append(x)
                 await message.channel.delete_messages(msg)
