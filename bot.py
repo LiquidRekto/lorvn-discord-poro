@@ -176,7 +176,7 @@ async def on_message(message):
                     msg = "\nLệnh phạt đã bị huỷ! \nLí do: Thiếu {}".format(missers)
                     await message.channel.send(f"{message.author.mention} %s" % msg)
                 else:
-                    content = db_getter.awardUser(ctx[1],ctx[2])
+                    content = db_getter.fineUser(ctx[1],ctx[2])
                     if content == 'user-not-exist':
                         msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
