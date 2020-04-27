@@ -114,7 +114,7 @@ async def on_message(message):
                 lists = await message.channel.history(limit=5).flatten()
                 for x in lists:
                     msg.append(x)
-                await client.delete_messages(msg)
+                await message.channel.delete_messages(msg)
                 # Check vi
 
             if message.content.startswith('$ban'):
