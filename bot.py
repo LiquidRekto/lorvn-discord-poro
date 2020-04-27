@@ -111,9 +111,9 @@ async def on_message(message):
         if authorIsAdmin(message):
             if message.content.startswith('$clear'):
                 msg = []
-                async for x in client.logs_from(message.channel, limit = 5):
+                async for x in message.channel.history(limit=5).flatten():
                     msg.append(x)
-                await client.delete_messages(msg)
+                await message.delete_messages(msg)
                 # Check vi
 
             if message.content.startswith('$ban'):
