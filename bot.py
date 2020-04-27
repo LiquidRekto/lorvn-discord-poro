@@ -110,11 +110,13 @@ async def on_message(message):
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if authorIsAdmin(message):
             if message.content.startswith('$clear'):
+                con = message.content.split()
                 msg = []
-                lists = await message.channel.history(limit=5).flatten()
+                lists = await message.channel.history(limit=int(con)).flatten()
                 for x in lists:
                     msg.append(x)
                 await message.channel.delete_messages(msg)
+                await message.channel.send(f"{message.author.mention} Bạn đã xoá %s tin nhắn!" % con)
                 # Check vi
 
             if message.content.startswith('$ban'):
