@@ -111,7 +111,8 @@ async def on_message(message):
         if authorIsAdmin(message):
             if message.content.startswith('$clear'):
                 msg = []
-                async for x in message.channel.history(limit=5).flatten():
+                lists = await message.channel.history(limit=5).flatten()
+                for x in lists:
                     msg.append(x)
                 await message.delete_messages(msg)
                 # Check vi
