@@ -116,7 +116,7 @@ async def on_message(message):
                 for x in lists:
                     msg.append(x)
                 await message.channel.delete_messages(msg)
-                await message.channel.send(f"{message.author.mention} Bạn đã xoá %s tin nhắn!" % con)
+                await message.channel.send(f"{message.author.mention} Bạn đã xoá %s tin nhắn!" % con[1])
                 # Check vi
 
             if message.content.startswith('$ban'):
