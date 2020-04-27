@@ -149,7 +149,7 @@ async def on_message(message):
                 else:
                     content = db_getter.awardUser(ctx[1],ctx[2])
                     if content == 'user-not-exist':
-                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại!"
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại hoặc chưa tạo ví!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     elif content == 'exceeded-number':
                         msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Số snax mà bạn nhập vượt quá số ký tự quy định!"
@@ -178,7 +178,7 @@ async def on_message(message):
                 else:
                     content = db_getter.fineUser(ctx[1],ctx[2])
                     if content == 'user-not-exist':
-                        msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại!"
+                        msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại hoặc chưa tạo ví!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     elif content == 'exceeded-number':
                         msg = "\nLệnh phạt đã bị huỷ! \nLí do: Số snax mà bạn nhập vượt quá số ký tự quy định!"
