@@ -57,7 +57,23 @@ def awardUser(discord, amount):
         return {"user":discord, "snax":amount}
 
 def fineUser(discord, amount):
-    print()
+    key_str = getKeys()
+    LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
+    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
+    user = cur.fetchone()
+    if (user == None):
+        return "user-not-exist"
+    elif (len(amount) > LIMIT):
+        return "exceeded-number"
+    elif (amount[0] == '-'):
+        return "negative-number"
+    else:
+        cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
+        currentAmnt = cur.fetchone()
+        newAmnt = currentAmnt[0] - int(amount)
+        cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (newAmnt, discord))
+        conn.commit()
+        return {"user":discord, "snax":amount}
 
 def checkWalletInfo(discord):
     cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))

@@ -12,7 +12,7 @@ inAdmin = os.environ['ADMIN']
 def authorIsAdmin(msg):
     identified = False
     for role in msg.author.roles:
-        if (role.name == "admin"):
+        if (role.name == "admin") or (role.name == inAdmin):
             identified = True
             return True
     if identified == False:
@@ -109,7 +109,7 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if authorIsAdmin(message):
-            if message.content.startswith('$clear'):
+            if message.content.startswith("&clear"):
                 con = message.content.split()
                 msg = []
                 lists = await message.channel.history(limit=int(con[1])+1).flatten()
@@ -119,13 +119,13 @@ async def on_message(message):
                 await message.channel.send(f"{message.author.mention} Bạn đã xoá %s tin nhắn!" % con[1])
                 # Check vi
 
-            if message.content.startswith('$ban'):
+            if message.content.startswith('&ban'):
                 print('ban')
 
-            if message.content.startswith('$mute'):
+            if message.content.startswith('&mute'):
                 print('mute')
 
-            if message.content.startswith('$slowmode'):
+            if message.content.startswith('&slowmode'):
                 print('slow')
             
 
@@ -179,6 +179,12 @@ async def on_message(message):
                     content = db_getter.awardUser(ctx[1],ctx[2])
                     if content == 'user-not-exist':
                         msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'exceeded-number':
+                        msg = "\nLệnh phạt đã bị huỷ! \nLí do: Số snax mà bạn nhập vượt quá số ký tự quy định!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'negative-number':
+                        msg = "\nLệnh phạt đã bị huỷ! \nLí do: Số snax bạn nhập vào là số âm!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Phạt người chơi thành công!")
