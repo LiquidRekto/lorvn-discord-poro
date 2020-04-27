@@ -148,6 +148,12 @@ async def on_message(message):
                     if content == 'user-not-exist':
                         msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'exceeded-number':
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Số snax mà bạn nhập vượt quá số ký tự quy định!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'negative-number':
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Số snax bạn nhập vào là số âm!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
             

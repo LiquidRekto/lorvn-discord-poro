@@ -6,7 +6,18 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-def addUserEconomyData(discord, amount):
+def getKeys():
+    board = {}
+    cur.execute("SELECT * FROM bot_config")
+    dat = cur.fetchall()
+    for chunk in dat:
+        key = chunk[0]
+        val = chunk[1]
+        board[key] = val
+    return board
+
+
+def addUserEconomyData(discord, amount):   
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     check = cur.fetchone()
     if check == None:
@@ -24,14 +35,19 @@ def addUserEconomyData(discord, amount):
         return {"id":id }
     else:
         return 'duplicated'
+        
 
 def awardUser(discord, amount):
+    key_str = getKeys()
+    LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     user = cur.fetchone()
     if (user == None):
         return "user-not-exist"
-    elif (len(amount) > 10):
+    elif (len(amount) > LIMIT):
         return "exceeded-number"
+    elif (amount[0] == '-'):
+        return "negative-number"
     else:
         cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
         currentAmnt = cur.fetchone()
