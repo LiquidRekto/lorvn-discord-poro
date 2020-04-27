@@ -2,6 +2,7 @@ import discord
 import os
 import card_identify
 import db_getter
+import report_bot
 
 
 from lor_deckcodes import LoRDeck
