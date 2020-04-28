@@ -7,7 +7,8 @@ response2 = json.loads(requests.get("http://dd.b.pvp.net/latest/set2/en_us/data/
 image_urls = {}
 
 for card in response1:
-    image_urls[card['name']] = { "CardArt": f"{(card['assets'])['gameAbsolutePath']}", "FullArt": f"{(card['assets'])['fullAbsolutePath']}" }
+    source = (card['assets'])[0]
+    image_urls[card['name']] = { "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" }
 
 for card in response2:
-   image_urls[card['name']] = { "CardArt": f"{(card['assets'])['gameAbsolutePath']}", "FullArt": f"{(card['assets'])['fullAbsolutePath']}" }
+   image_urls[card['name']] = { "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" }
