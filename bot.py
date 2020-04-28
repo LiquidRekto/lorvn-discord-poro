@@ -72,11 +72,10 @@ async def on_message(message):
     if message.author.bot:
         return
     else:
-        if "uwu" in message.content.lower(): #Tra loi UwU
-            await message.channel.send("UwU")
-            #tao deck
+         #tao emoji
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
+            #tao deck
         if message.content.startswith('!deck'):
             ctx = message.content.split()
             if (len(ctx) < 2):
