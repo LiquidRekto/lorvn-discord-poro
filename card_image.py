@@ -10,4 +10,4 @@ for card in response1:
     image_urls[card['name']] = { "CardArt": f"{card['gameAbsolutePath']}", "FullArt": f"{card['fullAbsolutePath']}" }
 
 for card in response2:
-   cards_data[card['cardCode']] = { "Name": f"{card['name']}"}
+   image_urls[card['name']] = { "CardArt": f"{card['gameAbsolutePath']}", "FullArt": f"{card['fullAbsolutePath']}" }
