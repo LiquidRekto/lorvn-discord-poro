@@ -126,7 +126,7 @@ async def on_message(message):
                 if len(card_image.image_urls[card_name]) > 1:
                     
                     for tar in card_image.image_urls[card_name]:
-                        if tar['isLevelledUp'] is not None:
+                        if 'isLevelledUp' in tar:
                             if ctx[len(ctx) - 1] == "lvlup":
                                 if tar['isLevelledUp'] is True:
                                     image_link = tar['CardArt']
