@@ -109,7 +109,7 @@ async def on_message(message):
                     if status == 'help':
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
-        if message.content.startswith('!card'):
+        if message.content.startswith('!card') or message.content.startswith('!cardart'):
             image_link = None
             ctx = message.content.split()
             if (len(ctx) < 2):
@@ -129,14 +129,23 @@ async def on_message(message):
                         if 'isLevelledUp' in tar:
                             if ctx[len(ctx) - 1] == "lvlup":
                                 if tar['isLevelledUp'] is True:
-                                    image_link = tar['CardArt']
+                                    if ctx[0] == '!card':
+                                        image_link = tar['CardArt']
+                                    else:
+                                        image_link = tar['FullArt']
                                     break
                             else:
                                 if tar['isLevelledUp'] is False:
-                                    image_link = tar['CardArt']
+                                    if ctx[0] == '!card':
+                                        image_link = tar['CardArt']
+                                    else:
+                                        image_link = tar['FullArt']
                                     break
                 else:
-                    image_link = ((card_image.image_urls[card_name])[0])['CardArt']
+                    if ctx[0] == "!card":
+                        image_link = ((card_image.image_urls[card_name])[0])['CardArt']
+                    else:
+                        image_link = ((card_image.image_urls[card_name])[0])['FullArt']
                 print(image_link)
                 e = discord.Embed()
                 e.set_image(url=image_link)
