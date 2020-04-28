@@ -59,11 +59,10 @@ def regionEmote(reg, cli):
         for emote in cli.emojis:
             if (emote.id == reg):
                 target = str(emote)
+                return target
     except:
         print("Error retrieving the emote!")
         return ""
-    else:
-        return target
 
 
 def cardParser(code):
