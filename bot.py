@@ -126,14 +126,15 @@ async def on_message(message):
                 if len(card_image.image_urls[card_name]) > 1:
                     
                     for tar in card_image.image_urls[card_name]:
-                        if ctx[len(ctx) - 1] == "lvlup":
-                            if tar['isLevelledUp'] is True:
-                                image_link = tar['CardArt']
-                                break
-                        else:
-                            if tar['isLevelledUp'] is False:
-                                image_link = tar['CardArt']
-                                break
+                        if tar['isLevelledUp'] is not None:
+                            if ctx[len(ctx) - 1] == "lvlup":
+                                if tar['isLevelledUp'] is True:
+                                    image_link = tar['CardArt']
+                                    break
+                            else:
+                                if tar['isLevelledUp'] is False:
+                                    image_link = tar['CardArt']
+                                    break
                 else:
                     image_link = (card_image.image_urls[card_name])['CardArt']
                 e = discord.Embed()
