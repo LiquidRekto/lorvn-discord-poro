@@ -58,7 +58,7 @@ def regionEmote(reg, cli):
     out = switcher[reg]
     for emote in cli.emojis:
         print((emote.id, out))
-        if (emote.id == out):
+        if (str(emote.id) == out):
             target = str(emote)
             defined = True
             break
