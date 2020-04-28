@@ -85,9 +85,9 @@ async def on_message(message):
                     try:
                         await message.channel.send(embed = deckCompiler(code))
                     except:
-                        await message.channel.send("Hình như Code bạn cung cấp có vấn đề... bạn thử sửa lại code xem ┐(︶▽︶)┌")
+                        await message.channel.send(f"{message.author.mention} Hình như Code bạn cung cấp có vấn đề... bạn thử sửa lại code xem ┐(︶▽︶)┌")
                     else:
-                        await message.channel.send('Mã Deck dã được giải rồi! Yay~')
+                        await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
                       
         if message.content.startswith('!wallet'):
             ctx = message.content.split()
