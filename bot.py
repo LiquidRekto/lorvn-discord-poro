@@ -74,7 +74,6 @@ def cardParser(code):
 
 def deckCompiler(deckcode):
     outputmsg = f">>> {regionEmote('Bilgewater',client)} {regionEmote('Demacia',client)} {regionEmote('Ionia',client)}"
-    regionEmote('f',client)
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     card_list = list(target)
