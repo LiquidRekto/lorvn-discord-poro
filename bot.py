@@ -51,8 +51,10 @@ def cardParser(code):
     card_region = cardCode[2:-3]
     return {"amount":amount, "cardCode":cardCode, "region":card_region, "set":card_set}
 
+#def regionChunkCompiler(cards):
+
 def deckCompiler(deckcode):
-    outputmsg = ">>> "
+    outputmsg = ">>> :demacia: :demacia:"
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     card_list = list(target)
