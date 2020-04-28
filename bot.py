@@ -53,14 +53,19 @@ def regionEmote(reg, cli):
         'PiltoverZaun':'704619522715418737',
         'ShadowIsles':'704619523172597860'
     }
+    defined = False
     target = None
     out = switcher[reg]
     for emote in cli.emojis:
-        print(emote.id)
+        print((emote.id, out))
         if (emote.id == out):
             target = str(emote)
+            defined = True
             break
-    return target
+    if defined:
+        return target
+    else:
+        return ""
 
 
 def cardParser(code):
