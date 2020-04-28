@@ -5,6 +5,7 @@ import card_image
 import db_getter
 import report_bot
 import kaomoji_handler
+import permissions
 
 
 from lor_deckcodes import LoRDeck
@@ -20,6 +21,18 @@ def authorIsAdmin(msg):
             return True
     if identified == False:
         return False
+
+def checkEligibility(msg):
+    identified = False
+    if len(msg.author.roles) > 0:
+        for role in msg.author.roles:
+            if (permissions.checkPermissionOf(role.name) is True):
+                identified = True
+                return True
+                break
+    if identified == False:
+        return False
+
         
 
 
@@ -117,7 +130,7 @@ async def on_message(message):
                     else:
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
                       
-        if message.content.startswith('!wallet'):
+        if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
                 wallet_check = db_getter.checkWalletInfo(str(message.author))
