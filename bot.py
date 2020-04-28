@@ -122,7 +122,7 @@ async def on_message(message):
                     if (ctx[1:].index(code) < len(ctx[1:]) - 1):
                         card_name += " "
                 if card_name[len(card_name) - 1] == " ":
-                    card_name = card_name[:len(card_name - 1)]
+                    card_name = card_name[:-1]
                 if len(card_image.image_urls[card_name]) > 1:
                     
                     for tar in card_image.image_urls[card_name]:
