@@ -43,7 +43,7 @@ def generateEmbed(deckData, deckCode):
     embed.set_footer(text="Deck hay thiệt!")
     return embed
 
-def regionEmote(str, cli):
+def regionEmote(reg, cli):
     switcher = {
         'Bilgewater':'704619522665086999',
         'Demacia':'704619523117940737',
@@ -53,7 +53,18 @@ def regionEmote(str, cli):
         'PiltoverZaun':'704619522715418737',
         'ShadowIsles':'704619523172597860'
     }
-    print(cli.emojis)
+    target = None
+    try:
+        out = switcher[reg]
+        for emote in cli.emojis:
+            if (emote.id == reg):
+                target = str(emote)
+    except:
+        print("Error retrieving the emote!")
+        return ""
+    else:
+        return target
+
 
 def cardParser(code):
     src = str(code)
@@ -66,7 +77,7 @@ def cardParser(code):
 #def regionChunkCompiler(cards):
 
 def deckCompiler(deckcode):
-    outputmsg = ">>> :demacia: :demacia:"
+    outputmsg = f">>> {regionEmote('Bilgewater',client)} {regionEmote('Demacia',client)} {regionEmote('Ionia',client)}"
     regionEmote('f',client)
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
