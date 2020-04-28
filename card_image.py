@@ -15,7 +15,7 @@ for card in response1:
         image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
     else:
         image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-
+    print(image_urls[card['name']])
 
 for card in response2:
    source = (card['assets'])[0]
