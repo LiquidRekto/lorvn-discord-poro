@@ -106,7 +106,8 @@ async def on_message(message):
                 for code in ctx[1:]:
                     try:
                         await message.channel.send(embed = deckCompiler(code))
-                    except:
+                    except Exception as e:
+                        print(e)
                         await message.channel.send(f"{message.author.mention} Hình như Code bạn cung cấp có vấn đề... bạn thử sửa lại code xem \n┐(︶▽︶)┌")
                     else:
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
