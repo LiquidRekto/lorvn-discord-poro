@@ -54,15 +54,12 @@ def regionEmote(reg, cli):
         'ShadowIsles':'704619523172597860'
     }
     target = None
-    try:
-        out = switcher[reg]
-        for emote in cli.emojis:
-            if (emote.id == reg):
-                target = str(emote)
-                return target
-    except:
-        print("Error retrieving the emote!")
-        return ""
+    out = switcher[reg]
+    for emote in cli.emojis:
+        if (emote.id == reg):
+            target = str(emote)
+            break
+    return target
 
 
 def cardParser(code):
