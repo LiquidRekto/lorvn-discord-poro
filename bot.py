@@ -119,7 +119,7 @@ async def on_message(message):
                 for code in ctx[1:]:
                     if code != "lvlup":
                         card_name += code
-                    if (ctx[1:].index(code) < len(ctx[1:]) - 1):
+                    if (ctx[1:].index(code) < len(ctx[1:]) - 1 or (ctx[1:])[ctx[1:].index(code) + 1] == "lvlup"):
                         card_name += " "
                 if len(card_image.image_urls[card_name]) > 1:
                     
