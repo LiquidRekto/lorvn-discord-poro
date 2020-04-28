@@ -84,6 +84,7 @@ def checkWalletInfo(discord):
         return {"id":check[1], "snax":check[2]}
 
 def getSnaxInfo(discord):
+    
     cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):

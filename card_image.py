@@ -11,4 +11,5 @@ for card in response1:
     image_urls[card['name']] = { "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" }
 
 for card in response2:
+   source = (card['assets'])[0]
    image_urls[card['name']] = { "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" }
