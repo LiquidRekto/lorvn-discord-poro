@@ -136,7 +136,7 @@ async def on_message(message):
                                     image_link = tar['CardArt']
                                     break
                 else:
-                    image_link = (card_image.image_urls[card_name])['CardArt']
+                    image_link = ((card_image.image_urls[card_name])[0])['CardArt']
                 print(image_link)
                 e = discord.Embed()
                 e.set_image(url=image_link)
