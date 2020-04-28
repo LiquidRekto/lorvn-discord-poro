@@ -4,6 +4,7 @@ import card_identify
 import card_image
 import db_getter
 import report_bot
+import kaomoji_handler
 
 
 from lor_deckcodes import LoRDeck
@@ -46,7 +47,9 @@ def cardParser(code):
     src = str(code)
     amount = src[0]
     cardCode = src[2:]
-    return {"amount":amount, "cardCode":cardCode}
+    card_set = cardCode[:2]
+    card_region = cardCode[2:-3]
+    return {"amount":amount, "cardCode":cardCode, "region":card_region, "set":card_set}
 
 def deckCompiler(deckcode):
     outputmsg = ">>> "
@@ -72,6 +75,8 @@ async def on_message(message):
         if "uwu" in message.content.lower(): #Tra loi UwU
             await message.channel.send("UwU")
             #tao deck
+        if kaomoji_handler.isAnEmote(message.content):
+            await message.channel.send(kaomoji_handler.HandleKaomoji())
         if message.content.startswith('!deck'):
             ctx = message.content.split()
             if (len(ctx) < 2):
