@@ -43,6 +43,18 @@ def generateEmbed(deckData, deckCode):
     embed.set_footer(text="Deck hay thiệt!")
     return embed
 
+def regionEmote(str, cli):
+    switcher = {
+        'Bilgewater':'704619522665086999',
+        'Demacia':'704619523117940737',
+        'Freljord':'704619523009019915',
+        'Noxus':'704619523239706655',
+        'Ionia':'704619522706898996',
+        'PiltoverZaun':'704619522715418737',
+        'ShadowIsles':'704619523172597860'
+    }
+    print(cli.emojis)
+
 def cardParser(code):
     src = str(code)
     amount = src[0]
@@ -55,6 +67,7 @@ def cardParser(code):
 
 def deckCompiler(deckcode):
     outputmsg = ">>> :demacia: :demacia:"
+    regionEmote('f',client)
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     card_list = list(target)
