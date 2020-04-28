@@ -1,6 +1,7 @@
 import discord
 import os
 import card_identify
+import card_image
 import db_getter
 import report_bot
 
@@ -108,6 +109,16 @@ async def on_message(message):
                     if status == 'help':
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
+        if message.content.startswith('!card'):
+            ctx = message.content.split()
+            if (len(ctx) < 2):
+                await message.channel.send(f"{message.author.mention} Hổng có gì để xem hết... Bạn vui lòng đưa mình tên thẻ ạ!")
+            else:
+                card_name = ""
+                for code in ctx[1:]:
+                    card_name += code
+                image_link = (card_image.image_urls[card_name])['CardArt']
+                await message.channel.send(f"{message.author.mention} Tìm được thẻ rồi nha~ OwO",file=discord.File(image_link))
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if authorIsAdmin(message):
             if message.content.startswith("&clear"):
