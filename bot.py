@@ -119,8 +119,10 @@ async def on_message(message):
                 for code in ctx[1:]:
                     if code != "lvlup":
                         card_name += code
-                    if (ctx[1:].index(code) < len(ctx[1:]) - 1 or (ctx[1:])[ctx[1:].index(code) + 1] == "lvlup"):
+                    if (ctx[1:].index(code) < len(ctx[1:]) - 1):
                         card_name += " "
+                if card_name[len(card_name) - 1] == " ":
+                    card_name = card_name[:len(card_name - 1)]
                 if len(card_image.image_urls[card_name]) > 1:
                     
                     for tar in card_image.image_urls[card_name]:
