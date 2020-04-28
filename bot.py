@@ -117,6 +117,8 @@ async def on_message(message):
                 card_name = ""
                 for code in ctx[1:]:
                     card_name += code
+                    if (ctx[1:].index(code) < ctx[1:].length - 1):
+                        card_name += " "
                 image_link = (card_image.image_urls[card_name])['CardArt']
                 e = discord.Embed()
                 e.set_image(url=image_link)
