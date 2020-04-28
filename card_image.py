@@ -13,9 +13,8 @@ for card in response1:
         image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
     elif card['levelupDescription'] != "" and card['rarity'] == "Champion":
         image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    else:
+    elif card['rarity'] != "Champion":
         image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    print(image_urls[card['name']])
 
 for card in response2:
     image_urls.setdefault(card['name'], [])
@@ -26,4 +25,3 @@ for card in response2:
         image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
     else:
         image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    print(image_urls[card['name']])

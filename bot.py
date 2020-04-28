@@ -121,7 +121,7 @@ async def on_message(message):
                         card_name += code
                     if (ctx[1:].index(code) < len(ctx[1:]) - 1):
                         card_name += " "
-                if (card_image.image_urls[card_name])['isLevelledUp'] is not None:
+                if len(card_image.image_urls[card_name]) > 1:
                     
                     for tar in card_image.image_urls[card_name]:
                         if ctx[len(ctx) - 1] == "lvlup":
