@@ -149,7 +149,12 @@ async def on_message(message):
                 print(image_link)
                 e = discord.Embed()
                 e.set_image(url=image_link)
-                await message.channel.send(f"{message.author.mention} Tìm được thẻ rồi nha~ OwO")
+                fig = ""
+                if ctx[0] == "!card":
+                    fig = "thẻ"
+                else:
+                    fig = "art"
+                await message.channel.send(f"{message.author.mention} Tìm được {fig} rồi nha~ OwO")
                 await message.channel.send(embed = e)
         # Check neu do la admin (thuc hien chuc nang duoi)    
         if authorIsAdmin(message):
