@@ -110,16 +110,30 @@ async def on_message(message):
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
         if message.content.startswith('!card'):
+            image_link = None
             ctx = message.content.split()
             if (len(ctx) < 2):
                 await message.channel.send(f"{message.author.mention} Hổng có gì để xem hết... Bạn vui lòng đưa mình tên thẻ ạ!")
             else:
                 card_name = ""
                 for code in ctx[1:]:
-                    card_name += code
+                    if code != "lvlup":
+                        card_name += code
                     if (ctx[1:].index(code) < len(ctx[1:]) - 1):
                         card_name += " "
-                image_link = (card_image.image_urls[card_name])['CardArt']
+                if (card_image.image_urls[card_name])['isLevelledUp'] is not None:
+                    
+                    for tar in card_image.image_urls[card_name]:
+                        if ctx[len(ctx) - 1] == "lvlup":
+                            if tar['isLevelledUp'] is True:
+                                image_link = tar['CardArt']
+                                break
+                        else:
+                            if tar['isLevelledUp'] is False:
+                                image_link = tar['CardArt']
+                                break
+                else:
+                    image_link = (card_image.image_urls[card_name])['CardArt']
                 e = discord.Embed()
                 e.set_image(url=image_link)
                 await message.channel.send(f"{message.author.mention} Tìm được thẻ rồi nha~ OwO")

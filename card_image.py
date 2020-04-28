@@ -7,8 +7,15 @@ response2 = json.loads(requests.get("http://dd.b.pvp.net/latest/set2/en_us/data/
 image_urls = {}
 
 for card in response1:
+    image_urls.setdefault(card['name'], [])
     source = (card['assets'])[0]
-    image_urls[card['name']] = { "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" }
+    if card['levelupDescription'] == None:
+        image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
+    elif card['levelupDescription'] == "":
+        image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
+    else:
+        image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
+
 
 for card in response2:
    source = (card['assets'])[0]
