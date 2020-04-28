@@ -137,6 +137,7 @@ async def on_message(message):
                                     break
                 else:
                     image_link = (card_image.image_urls[card_name])['CardArt']
+                print(image_link)
                 e = discord.Embed()
                 e.set_image(url=image_link)
                 await message.channel.send(f"{message.author.mention} Tìm được thẻ rồi nha~ OwO")
