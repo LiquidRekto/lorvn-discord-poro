@@ -37,7 +37,7 @@ def addUserEconomyData(discord, amount):
         return 'duplicated'
         
 
-def awardUser(int, amount):
+def awardUser(id, amount):
     cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
     discord = (cur.fetchone())[0]
     key_str = getKeys()
