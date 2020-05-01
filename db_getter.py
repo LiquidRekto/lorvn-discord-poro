@@ -37,10 +37,12 @@ def addUserEconomyData(discord, amount):
         return 'duplicated'
         
 
-def awardUser(discord, amount):
+def awardUser(int, amount):
+    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+    discord = (cur.fetchone())[0]
     key_str = getKeys()
     LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
+    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
     user = cur.fetchone()
     if (user == None):
         return "user-not-exist"
@@ -49,17 +51,19 @@ def awardUser(discord, amount):
     elif (amount[0] == '-'):
         return "negative-number"
     else:
-        cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
+        cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
         currentAmnt = cur.fetchone()
         newAmnt = currentAmnt[0] + int(amount)
-        cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (newAmnt, discord))
+        cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
         conn.commit()
         return {"user":discord, "snax":amount}
 
-def fineUser(discord, amount):
+def fineUser(id, amount):
+    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+    discord = (cur.fetchone())[0]
     key_str = getKeys()
     LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
+    cur.execute("SELECT id FROM economy WHERE id = '%s'" % id)
     user = cur.fetchone()
     if (user == None):
         return "user-not-exist"
@@ -68,22 +72,31 @@ def fineUser(discord, amount):
     elif (amount[0] == '-'):
         return "negative-number"
     else:
-        cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % discord)
+        cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
         currentAmnt = cur.fetchone()
         newAmnt = currentAmnt[0] - int(amount)
-        cur.execute("UPDATE economy SET snax = %s WHERE discord = '%s'" % (newAmnt, discord))
+        cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
         conn.commit()
+        
         return {"user":discord, "snax":amount}
 
-def checkWalletInfo(discord):
+def checkWalletInfoSelf(discord): #self
     cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
     else:
-        return {"id":check[1], "snax":check[2]}
+        return {"id":check[0], "snax":check[2]}
 
-def getSnaxInfo(discord):
+def checkWalletInfoById(id):
+    cur.execute("SELECT * FROM economy WHERE id = '%s'" % (id))
+    check = cur.fetchone()
+    if (check == None):
+        return 'non-exist'
+    else:
+        return { "discord":check[1], "snax":check[2] }
+
+def getSnaxInfo(discord): # self
     
     cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()

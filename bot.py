@@ -129,11 +129,12 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Hình như Code bạn cung cấp có vấn đề... bạn thử sửa lại code xem \n┐(︶▽︶)┌")
                     else:
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
-                      
-        if message.content.startswith('!wallet') and checkEligibility(message) is True:
+
+         # Kiểm tra ví             
+        if message.content.startswith('!wallet') and checkEligibility(message) is True: 
             ctx = message.content.split()
             if (len(ctx) < 2):
-                wallet_check = db_getter.checkWalletInfo(str(message.author))
+                wallet_check = db_getter.checkWalletInfoSelf(str(message.author))
                 if (wallet_check == 'non-exist'):
                     await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
                 else:
@@ -141,7 +142,7 @@ async def on_message(message):
                     await message.channel.send(f"{message.author.mention} %s" % msg)
             else:
                 for status in ctx[1:]:
-                    if status == 'create':
+                    if status == 'create': # Tạo ví
                         wallet = db_getter.addUserEconomyData(str(message.author), 0)
                         if wallet == 'duplicated':
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
@@ -149,7 +150,7 @@ async def on_message(message):
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
                     if status == 'destroy':
                         await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
-                    if status == 'snax':
+                    if status == 'snax': #Kiểm tra snax
                         snax = db_getter.getSnaxInfo(str(message.author))
                         if (snax == 'non-exist'):
                             msg = "Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n Tạo ví mới ngay bằng cách nhập **!wallet create**"
@@ -159,6 +160,22 @@ async def on_message(message):
                     if status == 'help':
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
+                    if status == 'peek':
+                        if len(ctx) < 3:
+                            msg = "Úi! Tui hông thể kiểm tra ví của người đó nếu bạn chưa cung cấp thông tin!"
+                            await message.channel.send(f"{message.author.mention} %s" % msg)
+                        else:
+                            username = ""
+                            for chunk in ctx[2:]:
+                                username += chunk
+                                if (ctx[2:].index(chunk) < len(ctx[2:]) - 1):
+                                    username += " "
+                            wallet_check = db_getter.checkWalletInfoBySelf(username)
+                            if wallet_check == "non-exist":
+                                await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
+                            else:
+                                msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])
+
         if message.content.startswith('!card') or message.content.startswith('!cardart'):
             image_link = None
             ctx = message.content.split()
@@ -232,7 +249,7 @@ async def on_message(message):
                             
             if message.content.startswith('&reward'):
                 REQUIRED_LENGTH = 3
-                contents = ['base','<user>','<amount>']
+                contents = ['base','<wallet id>','<amount>']
                 ctx = message.content.split()
                 if (len(ctx) < 3):
                     missers = ""
@@ -261,7 +278,7 @@ async def on_message(message):
             
             if message.content.startswith('&fine'):
                 REQUIRED_LENGTH = 3
-                contents = ['base','<user>','<amount>']
+                contents = ['base','<wallet id>','<amount>']
                 ctx = message.content.split()
                 if (len(ctx) < 3):
                     missers = ""
@@ -287,6 +304,9 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Phạt người chơi thành công!")
+                
+            if message.content.startswith('&peekwallet'):
+                print()
 
                 
 
