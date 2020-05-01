@@ -175,6 +175,7 @@ async def on_message(message):
                                 await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
                             else:
                                 msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["discord"],wallet_check["id"],wallet_check["snax"])
+                                await message.channel.send(f"{message.author.mention} %s" % msg)
 
         if message.content.startswith('!card') or message.content.startswith('!cardart'):
             image_link = None
