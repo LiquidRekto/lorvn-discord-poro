@@ -16,7 +16,7 @@ inAdmin = os.environ['ADMIN']
 def authorIsAdmin(msg):
     identified = False
     for role in msg.author.roles:
-        if (role.name == "admin"):
+        if (role.name == "admin") or (role.name == inAdmin):
             identified = True
             return True
     if identified == False:
