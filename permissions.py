@@ -14,7 +14,8 @@ for chunk in dat:
     rolelist[chunk[0]] = chunk[1]
 
 def checkPermissionOf(role):
-    if (rolelist[role] is True):
-        return True
-    else:
-        return False
+    if role in rolelist:
+        if (rolelist[role] is True):
+            return True
+        else:
+            return False
