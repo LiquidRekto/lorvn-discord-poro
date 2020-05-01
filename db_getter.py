@@ -86,7 +86,7 @@ def checkWalletInfoSelf(discord): #self
     if (check == None):
         return 'non-exist'
     else:
-        return {"id":check[0], "snax":check[2]}
+        return {"id":check[0], "snax":check[2], "discord":discord}
 
 def checkWalletInfoById(id):
     cur.execute("SELECT * FROM economy WHERE id = '%s'" % (id))

@@ -158,7 +158,7 @@ async def on_message(message):
                         else:
                             await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
                     if status == 'help':
-                        msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng"
+                        msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng \n **peek <discord name>** - Xem thông tin ví của người khác"
                         await message.channel.send(f"{message.author.mention} %s" % msg) 
                     if status == 'peek':
                         if len(ctx) < 3:
@@ -170,11 +170,11 @@ async def on_message(message):
                                 username += chunk
                                 if (ctx[2:].index(chunk) < len(ctx[2:]) - 1):
                                     username += " "
-                            wallet_check = db_getter.checkWalletInfoBySelf(username)
+                            wallet_check = db_getter.checkWalletInfoSelf(username)
                             if wallet_check == "non-exist":
                                 await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
                             else:
-                                msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])
+                                msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["discord"],wallet_check["id"],wallet_check["snax"])
 
         if message.content.startswith('!card') or message.content.startswith('!cardart'):
             image_link = None
