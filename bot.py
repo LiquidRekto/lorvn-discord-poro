@@ -134,7 +134,10 @@ async def on_message(message):
         if message.content.startswith('!wallet') and checkEligibility(message) is True: 
             ctx = message.content.split()
             if (len(ctx) < 2):
-                wallet_check = db_getter.checkWalletInfoSelf(str(message.author))
+                try:
+                    wallet_check = db_getter.checkWalletInfoSelf(str(message.author))
+                except:
+                    await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                 if (wallet_check == 'non-exist'):
                     await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
                 else:
