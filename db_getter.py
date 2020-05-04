@@ -20,7 +20,7 @@ def getKeys():
 def addUserEconomyData(discord, amount):   
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     check = cur.fetchone()
-    if check == None:
+    if len(check) == 0:
         cur.execute("SELECT id_num FROM id_get")
         results = cur.fetchone()
         id = results[0]
