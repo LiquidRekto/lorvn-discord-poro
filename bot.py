@@ -146,7 +146,10 @@ async def on_message(message):
             else:
                 for status in ctx[1:]:
                     if status == 'create': # Tạo ví
-                        wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                        try:
+                            wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                        except:
+                            await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                         if wallet == 'duplicated':
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
                         else:
@@ -154,7 +157,10 @@ async def on_message(message):
                     if status == 'destroy':
                         await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
                     if status == 'snax': #Kiểm tra snax
-                        snax = db_getter.getSnaxInfo(str(message.author))
+                        try:
+                            snax = db_getter.getSnaxInfo(str(message.author))
+                        except:
+                            await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                         if (snax == 'non-exist'):
                             msg = "Ví của bạn đâu? Tui không thể check được snax nếu bạn không có ví! ;(( \n Tạo ví mới ngay bằng cách nhập **!wallet create**"
                             await message.channel.send(f"{message.author.mention} %s" % msg)
@@ -173,7 +179,10 @@ async def on_message(message):
                                 username += chunk
                                 if (ctx[2:].index(chunk) < len(ctx[2:]) - 1):
                                     username += " "
-                            wallet_check = db_getter.checkWalletInfoSelf(username)
+                            try:
+                                wallet_check = db_getter.checkWalletInfoSelf(username)
+                            except:
+                                await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                             if wallet_check == "non-exist":
                                 await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
                             else:
