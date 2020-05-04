@@ -38,47 +38,52 @@ def addUserEconomyData(discord, amount):
         
 
 def awardUser(id, amount):
-    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
-    discord = (cur.fetchone())[0]
-    key_str = getKeys()
-    LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
-    user = cur.fetchone()
-    if (user == None) or (len(user) < 1):
-        return "user-not-exist"
-    elif (len(amount) > LIMIT):
-        return "exceeded-number"
-    elif (amount[0] == '-'):
-        return "negative-number"
+    if id.isdigit():
+        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        discord = (cur.fetchone())[0]
+        key_str = getKeys()
+        LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
+        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        user = cur.fetchone()
+        if (user == None) or (len(user) < 1):
+            return "user-not-exist"
+        elif (len(amount) > LIMIT):
+            return "exceeded-number"
+        elif (amount[0] == '-'):
+            return "negative-number"
+        else:
+            cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
+            currentAmnt = cur.fetchone()
+            newAmnt = currentAmnt[0] + int(amount)
+            cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
+            conn.commit()
+            return {"user":discord, "snax":amount}
     else:
-        cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
-        currentAmnt = cur.fetchone()
-        newAmnt = currentAmnt[0] + int(amount)
-        cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
-        conn.commit()
-        return {"user":discord, "snax":amount}
+        return "input-error"
 
 def fineUser(id, amount):
-    cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
-    discord = (cur.fetchone())[0]
-    key_str = getKeys()
-    LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-    cur.execute("SELECT id FROM economy WHERE id = '%s'" % id)
-    user = cur.fetchone()
-    if (user == None) or (len(user) < 1):
-        return "user-not-exist"
-    elif (len(amount) > LIMIT):
-        return "exceeded-number"
-    elif (amount[0] == '-'):
-        return "negative-number"
+    if id.isdigit():
+        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        discord = (cur.fetchone())[0]
+        key_str = getKeys()
+        LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
+        cur.execute("SELECT id FROM economy WHERE id = '%s'" % id)
+        user = cur.fetchone()
+        if (user == None) or (len(user) < 1):
+            return "user-not-exist"
+        elif (len(amount) > LIMIT):
+            return "exceeded-number"
+        elif (amount[0] == '-'):
+            return "negative-number"
+        else:
+            cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
+            currentAmnt = cur.fetchone()
+            newAmnt = currentAmnt[0] - int(amount)
+            cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
+            conn.commit()
+            return {"user":discord, "snax":amount}
     else:
-        cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
-        currentAmnt = cur.fetchone()
-        newAmnt = currentAmnt[0] - int(amount)
-        cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
-        conn.commit()
-        
-        return {"user":discord, "snax":amount}
+        return "input-error"
 
 def checkWalletInfoSelf(discord): #self
     cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))

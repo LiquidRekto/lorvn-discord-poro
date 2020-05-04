@@ -286,6 +286,9 @@ async def on_message(message):
                     elif content == 'negative-number':
                         msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Số snax bạn nhập vào là số âm!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'input-error':
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Lỗi nhập liệu!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
             
@@ -314,6 +317,9 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     elif content == 'negative-number':
                         msg = "\nLệnh phạt đã bị huỷ! \nLí do: Số snax bạn nhập vào là số âm!"
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
+                    elif content == 'input-error':
+                        msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Lỗi nhập liệu!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Phạt người chơi thành công!")
