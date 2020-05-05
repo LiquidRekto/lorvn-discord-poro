@@ -25,10 +25,10 @@ def addUserEconomyData(discord, amount):
         results = cur.fetchone()
         id = results[0]
         command = (
-            "INSERT INTO economy (discord, id, snax)"
+            "INSERT INTO economy (id, discord, snax)"
             "VALUES (%s, %s, %s)"
         )
-        data = (discord, id, amount)
+        data = (id, discord, amount)
         cur.execute("UPDATE id_get SET id_num=%s",(id+1,))
         cur.execute(command,data)
         conn.commit()

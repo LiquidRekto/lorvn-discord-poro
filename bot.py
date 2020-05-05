@@ -148,12 +148,13 @@ async def on_message(message):
                     if status == 'create': # Tạo ví
                         try:
                             wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                            if wallet == 'duplicated':
+                                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
+                            else:
+                                await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
                         except:
                             await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
-                        if wallet == 'duplicated':
-                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
-                        else:
-                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
+                        
                     if status == 'destroy':
                         await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
                     if status == 'snax': #Kiểm tra snax
