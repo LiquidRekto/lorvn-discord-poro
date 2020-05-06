@@ -20,7 +20,7 @@ def getKeys():
 def addUserEconomyData(discord, amount):   
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     check = cur.fetchone()
-    if (len(check) < 1) or (check == None):
+    if (check == None):
         cur.execute("SELECT id_num FROM id_get")
         results = cur.fetchone()
         id = results[0]
@@ -45,7 +45,7 @@ def awardUser(id, amount):
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
         cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
         user = cur.fetchone()
-        if (user == None) or (len(user) < 1):
+        if (user == None):
             return "user-not-exist"
         elif (len(amount) > LIMIT):
             return "exceeded-number"
@@ -69,7 +69,7 @@ def fineUser(id, amount):
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
         cur.execute("SELECT id FROM economy WHERE id = '%s'" % id)
         user = cur.fetchone()
-        if (user == None) or (len(user) < 1):
+        if (user == None):
             return "user-not-exist"
         elif (len(amount) > LIMIT):
             return "exceeded-number"
@@ -88,7 +88,7 @@ def fineUser(id, amount):
 def checkWalletInfoSelf(discord): #self
     cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
-    if (check == None) or (len(check) < 1):
+    if (check == None):
         return 'non-exist'
     else:
         return {"id":check[0], "snax":check[2], "discord":discord}
@@ -96,7 +96,7 @@ def checkWalletInfoSelf(discord): #self
 def checkWalletInfoById(id):
     cur.execute("SELECT * FROM economy WHERE id = '%s'" % (id))
     check = cur.fetchone()
-    if (check == None) or (len(check) < 1):
+    if (check == None):
         return 'non-exist'
     else:
         return { "discord":check[1], "snax":check[2] }
@@ -105,7 +105,7 @@ def getSnaxInfo(discord): # self
     
     cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
-    if (check == None) or (len(check) < 1):
+    if (check == None):
         return 'non-exist'
     else:
         return {"snax": check[0]}
