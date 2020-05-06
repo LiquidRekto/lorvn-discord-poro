@@ -26,7 +26,7 @@ def addUserEconomyData(discord, amount):
         id = results[0]
         command = (
             "INSERT INTO economy (id, discord, snax)"
-            "VALUES (%s, '%s', %s)"
+            "VALUES (%s, %s, %s)"
         )
         data = (id, discord, amount)
         cur.execute("UPDATE id_get SET id_num=%s",(id+1,))
