@@ -26,6 +26,7 @@ def checkEligibility(msg):
     identified = False
     if len(msg.author.roles) > 0:
         for role in msg.author.roles:
+            print(role.name, permissions.checkPermissionOf(role.name))
             if (permissions.checkPermissionOf(role.name) is True):
                 identified = True
                 return True
@@ -92,7 +93,7 @@ def cardParser(code):
 #def regionChunkCompiler(cards):
 
 def deckCompiler(deckcode):
-    outputmsg = f">>> {regionEmote('Bilgewater',client)} {regionEmote('Demacia',client)} {regionEmote('Ionia',client)}"
+    outputmsg = f">>> "
     data = card_identify.cards_data
     target = LoRDeck.from_deckcode(deckcode)
     card_list = list(target)
