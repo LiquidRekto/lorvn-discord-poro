@@ -34,14 +34,14 @@ def checkEligibility(msg):
     if identified == False:
         return False
 
-        
+
 
 
 # commands:
 #   !deck <deckcode> <locale>, !wallet <(status, buy, pass, balance)>, !report <user> <reason>
 #   !sharedeck <deckcode> <locale>
-# 
-# admin commands: 
+#
+# admin commands:
 #   $kick <user> <reason>, $mute <user> <time> <reason>, $slowmode <channel> <cooldown>
 #   $announcement <description>, $warn <user> <reason>, $ban <user> <time> <reason>
 
@@ -116,6 +116,8 @@ async def on_message(message):
          #tao emoji
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
+        if message.content.startswith('!requestfeature'):
+            await message.channel.send(f"{message.author.mention} Soon TM")
             #tao deck
         if message.content.startswith('!deck'):
             ctx = message.content.split()
@@ -131,8 +133,8 @@ async def on_message(message):
                     else:
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
 
-         # Kiểm tra ví             
-        if message.content.startswith('!wallet') and checkEligibility(message) is True: 
+         # Kiểm tra ví
+        if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
                 try:
@@ -142,13 +144,13 @@ async def on_message(message):
                 if (wallet_check == 'non-exist'):
                     await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
                 else:
-                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])                   
+                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])
                     await message.channel.send(f"{message.author.mention} %s" % msg)
             else:
                 for status in ctx[1:]:
                     if status == 'create': # Tạo ví
                        # try:
-                            
+
                        # except:
                        #     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                         wallet = db_getter.addUserEconomyData(str(message.author), 0)
@@ -156,7 +158,7 @@ async def on_message(message):
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
                         else:
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
-                        
+
                     if status == 'destroy':
                         await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
                     if status == 'snax': #Kiểm tra snax
@@ -171,7 +173,7 @@ async def on_message(message):
                             await message.channel.send(f"{message.author.mention} Bạn hiện tại đang có: **%s Snax!**" % snax["snax"])
                     if status == 'help':
                         msg = "\n*Các lệnh liên quan đến* ***!wallet*** \n **(để không)** - Xem thông tin ví \n **create** - Tạo ví mới \n **snax** - Xem thông tin snax hiện có \n **destroy** - Xoá ví hiện tại đang sử dụng \n **peek <discord name>** - Xem thông tin ví của người khác"
-                        await message.channel.send(f"{message.author.mention} %s" % msg) 
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
                     if status == 'peek':
                         if len(ctx) < 3:
                             msg = "Úi! Tui hông thể kiểm tra ví của người đó nếu bạn chưa cung cấp thông tin!"
@@ -207,7 +209,7 @@ async def on_message(message):
                 if card_name[len(card_name) - 1] == " ":
                     card_name = card_name[:-1]
                 if len(card_image.image_urls[card_name]) > 1:
-                    
+
                     for tar in card_image.image_urls[card_name]:
                         if 'isLevelledUp' in tar:
                             if ctx[len(ctx) - 1] == "lvlup":
@@ -239,7 +241,7 @@ async def on_message(message):
                     fig = "art"
                 await message.channel.send(f"{message.author.mention} Tìm được {fig} rồi nha~ OwO")
                 await message.channel.send(embed = e)
-        # Check neu do la admin (thuc hien chuc nang duoi)    
+        # Check neu do la admin (thuc hien chuc nang duoi)
         if authorIsAdmin(message):
             if message.content.startswith("&clear"):
                 con = message.content.split()
@@ -259,10 +261,10 @@ async def on_message(message):
 
             if message.content.startswith('&slowmode'):
                 print('slow')
-            
 
 
-                            
+
+
             if message.content.startswith('&reward'):
                 REQUIRED_LENGTH = 3
                 contents = ['base','<wallet id>','<amount>']
@@ -294,7 +296,7 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Chuyển thưởng thành công!")
-            
+
             if message.content.startswith('&fine'):
                 REQUIRED_LENGTH = 3
                 contents = ['base','<wallet id>','<amount>']
@@ -326,19 +328,19 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} %s" % msg)
                     else:
                         await message.channel.send(f"{message.author.mention} Phạt người chơi thành công!")
-                
+
             if message.content.startswith('&peekwallet'):
                 print()
 
-                
 
-                
+
+
 
 #@bot.command()
 #async def test (ctx):
 #print(ctx.message.member.)
-        
 
-        
+
+
 
 client.run(os.environ['DISCORD_TOKEN'])
