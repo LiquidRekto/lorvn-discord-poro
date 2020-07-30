@@ -1,4 +1,4 @@
 requests
-discord
+discord.py
 lor-deckcodes
 psycopg2
