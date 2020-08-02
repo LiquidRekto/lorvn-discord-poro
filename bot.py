@@ -152,6 +152,8 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
 
          # Kiểm tra ví
+        if message.content.startswith('!poke'):
+            await message.channel.send("Ahhn~~! :heart:")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             db_getter.printShopFunctionsList()
             await message.channel.send("Welcome to shop!")
