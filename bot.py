@@ -159,7 +159,7 @@ async def on_message(message):
             out = ""
             for func in funcs:
                 out += f"**{func['shop_func']}** - Giá: **{func['price']}**\nThời lượng sử dụng: {func['dur']}\n\n*{func['func_desc']}*"
-                if (func.index() < len(funcs) - 1):
+                if (funcs.index(func) < len(funcs) - 1):
                     out += "\n"
             print('LMAO')
             await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!")
