@@ -6,7 +6,7 @@ import db_getter
 import report_bot
 import kaomoji_handler
 import permissions
-import shop
+import utilities
 
 
 from lor_deckcodes import LoRDeck
@@ -158,11 +158,11 @@ async def on_message(message):
             funcs = db_getter.getShopFunctionsList()
             out = ""
             for func in funcs:
-                out += f"**{func['shop_func']}** - Giá: **{func['price']}**\nThời lượng sử dụng: {func['dur']}\n\n*{func['func_desc']}*"
+                out += f"**>>> {func['shop_func']}** - Giá: **{func['price']}**\nThời lượng sử dụng: {func['dur']}\n   *{func['func_desc']}*"
                 if (funcs.index(func) < len(funcs) - 1):
-                    out += "\n"
+                    out += "\n\n"
             print('LMAO')
-            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n{out}")
+            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n\n{out}")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
@@ -341,7 +341,7 @@ async def on_message(message):
                 REQUIRED_LENGTH = 3
                 contents = ['base','<wallet id>','<amount>']
                 ctx = message.content.split()
-                if (len(ctx) < 3):
+                if (len(ctx) < REQUIRED_LENGTH):
                     missers = ""
                     TRACK = len(ctx)
                     missing_contents = []
@@ -371,6 +371,34 @@ async def on_message(message):
 
             if message.content.startswith('&peekwallet'):
                 print()
+
+            if message.content.startswith('&shopmng'):
+                ctx = message.content.split()
+                if len(ctx) > 1:
+                    status = ctx[1]
+                    if status == "add":
+
+                        REQUIRED_LENGTH = 5
+                        contents = ['base','<shop function>','<shop description>','<price>','<duration>']
+                        if len(ctx[1:]) < REQUIRED_LENGTH:
+                            missers = ""
+                            TRACK = len(ctx[1:])
+                            missing_contents = []
+                            for num in contents:
+                                if contents.index(num) > (TRACK - 1):
+                                    missing_contents.append(num)
+                            for miss in missing_contents:
+                                missers += "{} ".format(miss)
+                            msg = "\nTạo mặt hàng mới không thành công! \nLí do: Thiếu {}".format(missers)
+                            await message.channel.send(f"{message.author.mention} %s" % msg)
+                        else:
+                            result = db_getter.addShopFunction(ctx[2],ctx[3],ctx[4],ctx[5])
+                            if (result == 'success'):
+                                await message.channel.send(f"{message.author.mention} Khởi tạo mặt hàng thành công! Đã thêm vào kệ hàng!")
+                            elif (result == 'duplicated'):
+                                msg = "\nTạo mặt hàng mới không thành công! \nLí do: Đã tồn tại mặt hàng cùng tên"
+                                await message.channel.send(f"{message.author.mention} Khởi tạo mặt hàng thành công! Đã thêm vào kệ hàng!")
+
 
 
 

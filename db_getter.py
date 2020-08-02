@@ -139,8 +139,19 @@ def getShopFunctionsList(): # UNDER CONSTRCUTION
     return func_list
 
 def addShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
-    cur.execute('INSERT INTO poro_shop')
-    print('LUL')
+    cur.execute("SELECT * FROM poro_shop WHERE shop_function = '%s'" % (shop_func))
+    check = cur.fetchone()
+    if (check != None):
+        return 'duplicated'
+    else:
+        command = (
+            "INSERT INTO poro_shop (shop_function, shop_function_desc, price, duration)"
+            "VALUES (%s, %s, %s, %s)"
+        )
+        data = (shop_func, func_desc, price, dur)
+        cur.execute(command,data)
+        conn.commit()
+        return 'success'
 
 
 def removeShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
