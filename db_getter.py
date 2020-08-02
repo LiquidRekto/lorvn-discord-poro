@@ -35,6 +35,25 @@ def addUserEconomyData(discord, amount):
         return {"id":id }
     else:
         return 'duplicated'
+
+def addUserEconomyDataNew(discord_id, amount):   
+    cur.execute("SELECT discord_id FROM economy_new WHERE discord_id = '%s'" % discord_id)
+    check = cur.fetchone()
+    if (check == None):
+        cur.execute("SELECT id_num FROM id_get")
+        results = cur.fetchone()
+        wallet_id = results[0]
+        command = (
+            "INSERT INTO economy_new (wallet_id, discord_id, snax)"
+            "VALUES (%s, %s, %s)"
+        )
+        data = (wallet_id, discord_id, amount)
+        cur.execute("UPDATE id_get SET id_num=%s",(id+1,))
+        cur.execute(command,data)
+        conn.commit()
+        return {"wallet_id":wallet_id }
+    else:
+        return 'duplicated'
         
 
 def awardUser(id, amount):
