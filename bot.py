@@ -118,7 +118,23 @@ async def on_message(message):
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
         if message.content.startswith('!requestfeature'):
-            await message.channel.send(f"{message.author.mention} Soon TM")
+
+            ctx = message.content.split()
+            if (len(ctx) < 2):
+                await message.channel.send(f"{message.author.mention} Tui không thể góp ý hộ bạn nếu như nội dung đóng góp để trống! :v")
+            else:
+                try:
+                    question = ""
+                    for question_chunk in ctx[1:]:
+                        question += question_chunk
+                        if (ctx[1:].index(question_chunk) < len(ctx[1:]) - 1):
+                            question += " "
+                    me = await message.get_user_info('670673783002103811')
+                    await message.send_message(me,f"Người dùng tên **{message.author}** đã hỏi:\n*{question}*")
+                    await message.channel.send(f"{message.author.mention} Gửi đóng góp thành công!")
+                except:
+                    await message.channel.send(f"{message.author.mention} Đóng góp thất bại! XIn hãy thử lại!")
+
             #tao deck
         if message.content.startswith('!deck'):
             ctx = message.content.split()
@@ -135,7 +151,7 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
 
          # Kiểm tra ví
-        if message.content.stratswith('!shop') and checkEligibility(message) is True:
+        if message.content.startswith('!shop') and checkEligibility(message) is True:
             await messange.channel.send("Welcome to shop!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
