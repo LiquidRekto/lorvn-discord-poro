@@ -129,7 +129,7 @@ async def on_message(message):
                         question += question_chunk
                         if (ctx[1:].index(question_chunk) < len(ctx[1:]) - 1):
                             question += " "
-                    me = await message.get_user_info('670673783002103811')
+                    me = await discord.utils.get(client.get_all_members(), id=670673783002103811)
                     await message.send_message(me,f"Người dùng tên **{message.author}** đã hỏi:\n*{question}*")
                     await message.channel.send(f"{message.author.mention} Gửi đóng góp thành công!")
                 except Exception as e:
@@ -153,6 +153,7 @@ async def on_message(message):
 
          # Kiểm tra ví
         if message.content.startswith('!shop') and checkEligibility(message) is True:
+            db_getter.printShopFunctionsList()
             await message.channel.send("Welcome to shop!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
