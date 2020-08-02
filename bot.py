@@ -130,7 +130,7 @@ async def on_message(message):
                         if (ctx[1:].index(question_chunk) < len(ctx[1:]) - 1):
                             question += " "
                     me = discord.utils.get(client.get_all_members(), id=670673783002103811)
-                    await me.send_message(f"Người dùng tên **{message.author}** đã hỏi:\n*{question}*")
+                    await me.send(f"Người dùng tên **{message.author}** đã hỏi:\n*{question}*")
                     await message.channel.send(f"{message.author.mention} Gửi đóng góp thành công!")
                 except Exception as e:
                     print(str(e))
