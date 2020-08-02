@@ -132,7 +132,7 @@ def getSnaxInfo(discord): # self
 def printShopFunctionsList(): # UNDER CONSTRCUTION
     cur.execute("SELECT * FROM poro_shop")
     check = cur.fetchone()
-    print(check)
+    print(check[0])
 
 def addShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
     cur.execute('INSERT INTO poro_shop')

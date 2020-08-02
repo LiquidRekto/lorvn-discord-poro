@@ -156,6 +156,7 @@ async def on_message(message):
             await message.channel.send("Nào...BUỒN!")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             db_getter.printShopFunctionsList()
+            print('LMAO')
             await message.channel.send("Welcome to shop!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
