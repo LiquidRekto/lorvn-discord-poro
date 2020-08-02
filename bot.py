@@ -117,7 +117,7 @@ async def on_message(message):
          #tao emoji
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
-        if message.content.startswith('!requestfeature'):
+        if message.content.startswith('!requestfeature') or message.content.startswith('!rf'):
 
             ctx = message.content.split()
             if (len(ctx) < 2):
@@ -373,7 +373,7 @@ async def on_message(message):
                 print()
 
             if message.content.startswith('&shopmng'):
-                ctx = message.content.split()
+                ctx = message.content.split('<->')
                 if len(ctx) > 1:
                     status = ctx[1]
                     if status == "add":
