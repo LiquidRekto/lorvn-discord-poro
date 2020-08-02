@@ -153,7 +153,7 @@ async def on_message(message):
 
          # Kiểm tra ví
         if message.content.startswith('!poke'):
-            await message.channel.send("Ahhn~~! :heart:")
+            await message.channel.send("Nào...BUỒN!")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             db_getter.printShopFunctionsList()
             await message.channel.send("Welcome to shop!")
