@@ -135,6 +135,7 @@ def printShopFunctionsList(): # UNDER CONSTRCUTION
     print(check)
 
 def addShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
+    cur.execute('INSERT INTO poro_shop')
     print('LUL')
 
 
