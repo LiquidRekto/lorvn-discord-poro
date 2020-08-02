@@ -156,13 +156,15 @@ async def on_message(message):
             await message.channel.send("Nào...BUỒN!")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             funcs = db_getter.getShopFunctionsList()
-            out = ""
+            embed_storage = []
             for func in funcs:
-                out += f"**>>> {func['shop_func']}** - Giá: **{func['price']}**\nThời lượng sử dụng: {func['dur']}\n   *{func['func_desc']}*"
-                if (funcs.index(func) < len(funcs) - 1):
-                    out += "\n\n"
-            print('LMAO')
-            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n\n{out}")
+                embed=discord.Embed(title=f"**{func['shop_func']}**", description=f"{func['func_desc']}" ,color=0x5a3030)
+                embed.add_field(name=f"Giá", value=f"{func['price']}", inline=True)
+                embed.add_field(name=f"Thời lượng sử dụng", value=f"{func['dur']}", inline=True)
+                embed_storage.append(embed)
+            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n\n")
+            for em in embed_storage:
+                await message.channel.send(embed=em)
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
