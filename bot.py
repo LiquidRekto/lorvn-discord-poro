@@ -393,12 +393,15 @@ async def on_message(message):
                             msg = "\nTạo mặt hàng mới không thành công! \nLí do: Thiếu {}".format(missers)
                             await message.channel.send(f"{message.author.mention} %s" % msg)
                         else:
-                            result = db_getter.addShopFunction(ctx[2],ctx[3],ctx[4],ctx[5])
+                            result = db_getter.addShopFunction(shop_ctx[0],shop_ctx[2],shop_ctx[3],shop_ctx[1])
                             if (result == 'success'):
                                 await message.channel.send(f"{message.author.mention} Khởi tạo mặt hàng thành công! Đã thêm vào kệ hàng!")
                             elif (result == 'duplicated'):
                                 msg = "\nTạo mặt hàng mới không thành công! \nLí do: Đã tồn tại mặt hàng cùng tên"
                                 await message.channel.send(f"{message.author.mention} Khởi tạo mặt hàng thành công! Đã thêm vào kệ hàng!")
+
+                    if status == "remove":
+                        print()
 
 
 
