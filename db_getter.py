@@ -129,10 +129,14 @@ def getSnaxInfo(discord): # self
     else:
         return {"snax": check[0]}
 
-def printShopFunctionsList(): # UNDER CONSTRCUTION
+def getShopFunctionsList(): # UNDER CONSTRCUTION
     cur.execute("SELECT * FROM poro_shop")
-    check = cur.fetchone()
-    print(check[0])
+    shop_funcs = cur.fetchall()
+    func_list = []
+    for func in shop_funcs:
+        print(func)
+        func_list.append({"shop_func":func[0], "func_desc":func[1], "price":func[2], "dur":func[3]})
+    return func_list
 
 def addShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
     cur.execute('INSERT INTO poro_shop')

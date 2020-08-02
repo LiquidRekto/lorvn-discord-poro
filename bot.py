@@ -113,7 +113,7 @@ client = discord.Client()
 async def on_message(message):
     if message.author.bot:
         return
-    else:
+    elif checkEligibility(message) is True:
          #tao emoji
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
@@ -155,9 +155,14 @@ async def on_message(message):
         if message.content.startswith('!poke'):
             await message.channel.send("Nào...BUỒN!")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
-            db_getter.printShopFunctionsList()
+            funcs = db_getter.getShopFunctionsList()
+            out = ""
+            for func in funcs:
+                out += f"**{func['shop_func']}** - Giá: **{func['price']}**\nThời lượng sử dụng: {func['dur']}\n\n*{func['func_desc']}*"
+                if (func.index() < len(funcs) - 1):
+                    out += "\n"
             print('LMAO')
-            await message.channel.send("Welcome to shop!")
+            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
