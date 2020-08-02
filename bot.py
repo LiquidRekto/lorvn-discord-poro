@@ -373,16 +373,17 @@ async def on_message(message):
                 print()
 
             if message.content.startswith('&shopmng'):
-                ctx = message.content.split('<->')
+                ctx = message.content.split()
                 if len(ctx) > 1:
                     status = ctx[1]
                     if status == "add":
 
-                        REQUIRED_LENGTH = 5
-                        contents = ['base','<shop function>','<shop description>','<price>','<duration>']
-                        if len(ctx[1:]) < REQUIRED_LENGTH:
+                        REQUIRED_LENGTH = 4
+                        contents = ['<shop function>','<shop description>','<price>','<duration>']
+                        shop_ctx = (utilities.getMergedStringChunks(ctx[2:])).split('<->')
+                        if len(shop_ctx) < REQUIRED_LENGTH:
                             missers = ""
-                            TRACK = len(ctx[1:])
+                            TRACK = len(shop_ctx)
                             missing_contents = []
                             for num in contents:
                                 if contents.index(num) > (TRACK - 1):
