@@ -162,7 +162,7 @@ async def on_message(message):
                 if (funcs.index(func) < len(funcs) - 1):
                     out += "\n"
             print('LMAO')
-            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!")
+            await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n{out}")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
