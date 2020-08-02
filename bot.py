@@ -6,6 +6,7 @@ import db_getter
 import report_bot
 import kaomoji_handler
 import permissions
+import shop
 
 
 from lor_deckcodes import LoRDeck
@@ -134,6 +135,8 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Mã Deck dã được giải rồi! Yay~")
 
          # Kiểm tra ví
+        if message.content.stratswith('!shop') and checkEligibility(message) is True:
+            await messange.channel.send("Welcome to shop!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):

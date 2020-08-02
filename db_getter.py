@@ -17,7 +17,7 @@ def getKeys():
     return board
 
 
-def addUserEconomyData(discord, amount):   
+def addUserEconomyData(discord, amount):
     cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
     check = cur.fetchone()
     if (check == None):
@@ -36,7 +36,7 @@ def addUserEconomyData(discord, amount):
     else:
         return 'duplicated'
 
-def addUserEconomyDataNew(discord_id, amount):   
+def addUserEconomyDataNew(discord_id, amount):
     cur.execute("SELECT discord_id FROM economy_new WHERE discord_id = '%s'" % discord_id)
     check = cur.fetchone()
     if (check == None):
@@ -54,7 +54,7 @@ def addUserEconomyDataNew(discord_id, amount):
         return {"wallet_id":wallet_id }
     else:
         return 'duplicated'
-        
+
 
 def awardUser(id, amount):
     if id.isdigit():
@@ -121,10 +121,25 @@ def checkWalletInfoById(id):
         return { "discord":check[1], "snax":check[2] }
 
 def getSnaxInfo(discord): # self
-    
+
     cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
     else:
         return {"snax": check[0]}
+
+def printShopFunctionsList(): # UNDER CONSTRCUTION
+    cur.execute("SELECT * FROM poro_shop")
+    check = cur.fetchone()
+    print(check)
+
+def addShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
+    print('LUL')
+
+
+def removeShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
+    print('LUL')
+
+def alterShopFunction(shop_func, sector): # UNDER CONSTRCUTION
+    print('LUL')
