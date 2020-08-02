@@ -132,7 +132,8 @@ async def on_message(message):
                     me = await message.get_user_info('670673783002103811')
                     await message.send_message(me,f"Người dùng tên **{message.author}** đã hỏi:\n*{question}*")
                     await message.channel.send(f"{message.author.mention} Gửi đóng góp thành công!")
-                except:
+                except Exception as e:
+                    print(str(e))
                     await message.channel.send(f"{message.author.mention} Đóng góp thất bại! XIn hãy thử lại!")
 
             #tao deck
@@ -152,7 +153,7 @@ async def on_message(message):
 
          # Kiểm tra ví
         if message.content.startswith('!shop') and checkEligibility(message) is True:
-            await messange.channel.send("Welcome to shop!")
+            await message.channel.send("Welcome to shop!")
         if message.content.startswith('!wallet') and checkEligibility(message) is True:
             ctx = message.content.split()
             if (len(ctx) < 2):
