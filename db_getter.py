@@ -48,7 +48,7 @@ def addUserEconomyDataNew(discord_id, amount):
             "VALUES (%s, %s, %s)"
         )
         data = (wallet_id, discord_id, amount)
-        cur.execute("UPDATE id_get SET id_num=%s",(id+1,))
+        cur.execute("UPDATE id_get SET id_num=%s",(wallet_id+1,))
         cur.execute(command,data)
         conn.commit()
         return {"wallet_id":wallet_id }

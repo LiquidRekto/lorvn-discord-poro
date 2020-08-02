@@ -164,7 +164,7 @@ async def on_message(message):
 
                        # except:
                        #     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
-                        wallet = db_getter.addUserEconomyDataNew(message.author.id, 0)
+                        wallet = db_getter.addUserEconomyDataNew(str(message.author.id), 0)
                         if wallet == 'duplicated':
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
                         else:
