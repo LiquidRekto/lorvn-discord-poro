@@ -178,13 +178,14 @@ async def on_message(message):
             if (len(ctx) < 2):
                 try:
                     wallet_check = db_getter.checkWalletInfoSelf(str(message.author.id))
+                    if (wallet_check == 'non-exist'):
+                        await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
+                    else:
+                        msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["wallet_id"],wallet_check["snax"])
+                        await message.channel.send(f"{message.author.mention} %s" % msg)
                 except:
                     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
-                if (wallet_check == 'non-exist'):
-                    await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
-                else:
-                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["wallet_id"],wallet_check["snax"])
-                    await message.channel.send(f"{message.author.mention} %s" % msg)
+
             else:
                 for status in ctx[1:]:
                     if status == 'create': # Tạo ví
