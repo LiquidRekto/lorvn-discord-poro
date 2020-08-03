@@ -17,7 +17,7 @@ inAdmin = os.environ['ADMIN']
 def getUserDiscordProperty(src, method, value):
     print(value)
     if (method == "by_name"):
-        out = discord.utils.get(src.get_all_members(), nick=value)
+        out = src.server.get_member()
         return out.id
     if (method == "by_id"):
         out_id = discord.utils.get(src.get_all_members(), id=int(value))
@@ -238,11 +238,11 @@ async def on_message(message):
                                 if (ctx[2:].index(chunk) < len(ctx[2:]) - 1):
                                     username += " "
                             try:
-                                wallet_check = db_getter.checkWalletInfoSelf(getUserDiscordProperty(client, 'by_name', username))
+                                wallet_check = db_getter.checkWalletInfoSelf(message.mentions[0].id)
                                 if wallet_check == "non-exist":
                                     await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
                                 else:
-                                    msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(getUserDiscordProperty(client,'by_id',wallet_check["discord"]),wallet_check["id"],wallet_check["snax"])
+                                    msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(message.mention[0].nick,wallet_check["id"],wallet_check["snax"])
                                     await message.channel.send(f"{message.author.mention} %s" % msg)
                             except Exception as e:
                                 print(e)
