@@ -15,8 +15,9 @@ from discord.ext import commands
 inAdmin = os.environ['ADMIN']
 
 def getUserDiscordProperty(src, method, value):
+    print(value)
     if (method == "by_name"):
-        out = discord.utils.get(src.get_all_members(), name=value)
+        out = discord.utils.get(src.get_all_members(), nick=value)
         return out.id
     if (method == "by_id"):
         out_id = discord.utils.get(src.get_all_members(), id=int(value))
