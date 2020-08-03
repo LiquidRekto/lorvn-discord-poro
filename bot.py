@@ -122,7 +122,7 @@ client = discord.Client()
 async def on_message(message):
     if message.author.bot:
         return
-    elif checkEligibility(message) is True:
+    else:
          #tao emoji
         if kaomoji_handler.isAnEmote(message.content):
             await message.channel.send(kaomoji_handler.HandleKaomoji())
