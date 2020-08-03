@@ -18,7 +18,7 @@ def getKeys():
     return board
 
 
-def addUserEconomyData(discord, amount):
+def addUserEconomyData(discord_id, amount):
     cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
     check = cur.fetchone()
     if (check == None):
