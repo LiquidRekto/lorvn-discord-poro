@@ -242,7 +242,7 @@ async def on_message(message):
                                 if wallet_check == "non-exist":
                                     await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
                                 else:
-                                    msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(message.mention[0].nick,wallet_check["id"],wallet_check["snax"])
+                                    msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(message.mentions[0].nick,wallet_check["id"],wallet_check["snax"])
                                     await message.channel.send(f"{message.author.mention} %s" % msg)
                             except Exception as e:
                                 print(e)
