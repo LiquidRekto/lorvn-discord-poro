@@ -163,6 +163,8 @@ async def on_message(message):
          # Kiểm tra ví
         if message.content.startswith('!poke'):
             await message.channel.send("Nào...BUỒN!")
+        if message.content.startswith('!steal'):
+            await message.channel.send(f"{message.author.mention} Chúc bạn may mắn lần sau!")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             funcs = db_getter.getShopFunctionsList()
             embed_storage = []
