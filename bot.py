@@ -238,13 +238,15 @@ async def on_message(message):
                                     username += " "
                             try:
                                 wallet_check = db_getter.checkWalletInfoSelf(getUserDiscordProperty(client, 'by_name', username))
-                            except:
+                                if wallet_check == "non-exist":
+                                    await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
+                                else:
+                                    msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(getUserDiscordProperty(client,'by_id',wallet_check["discord"]),wallet_check["id"],wallet_check["snax"])
+                                    await message.channel.send(f"{message.author.mention} %s" % msg)
+                            except Exception as e:
+                                print(e)
                                 await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
-                            if wallet_check == "non-exist":
-                                await message.channel.send(f"{message.author.mention} Chủ sở hữu của ví mà bạn cần truy vấn không tồn tại!")
-                            else:
-                                msg = "\n *Thông tin ví của {}:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(getUserDiscordProperty(client,'by_id',wallet_check["discord"]),wallet_check["id"],wallet_check["snax"])
-                                await message.channel.send(f"{message.author.mention} %s" % msg)
+
 
         if message.content.startswith('!card') or message.content.startswith('!cardart'):
             image_link = None
