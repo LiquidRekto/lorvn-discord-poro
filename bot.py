@@ -322,7 +322,7 @@ async def on_message(message):
 
             if message.content.startswith('&reward'):
                 REQUIRED_LENGTH = 3
-                contents = ['base','<wallet id>','<amount>']
+                contents = ['base','<mention>','<amount>']
                 ctx = message.content.split()
                 if (len(ctx) < 3):
                     missers = ""
@@ -336,7 +336,7 @@ async def on_message(message):
                     msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Thiếu {}".format(missers)
                     await message.channel.send(f"{message.author.mention} %s" % msg)
                 else:
-                    content = db_getter.awardUser(ctx[1],ctx[2])
+                    content = db_getter.awardUser(message.mentions[0].id,ctx[2])
                     if content == 'user-not-exist':
                         msg = "\nLệnh thưởng đã bị huỷ! \nLí do: Người được thưởng không tồn tại hoặc chưa tạo ví!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
@@ -354,7 +354,7 @@ async def on_message(message):
 
             if message.content.startswith('&fine'):
                 REQUIRED_LENGTH = 3
-                contents = ['base','<wallet id>','<amount>']
+                contents = ['base','<mention>','<amount>']
                 ctx = message.content.split()
                 if (len(ctx) < REQUIRED_LENGTH):
                     missers = ""
@@ -368,7 +368,7 @@ async def on_message(message):
                     msg = "\nLệnh phạt đã bị huỷ! \nLí do: Thiếu {}".format(missers)
                     await message.channel.send(f"{message.author.mention} %s" % msg)
                 else:
-                    content = db_getter.fineUser(ctx[1],ctx[2])
+                    content = db_getter.fineUser(message.mentions[0].id,ctx[2])
                     if content == 'user-not-exist':
                         msg = "\nLệnh phạt đã bị huỷ! \nLí do: Người bị phạt không tồn tại hoặc chưa tạo ví!"
                         await message.channel.send(f"{message.author.mention} %s" % msg)
