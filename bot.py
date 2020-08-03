@@ -183,7 +183,8 @@ async def on_message(message):
                     else:
                         msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["wallet_id"],wallet_check["snax"])
                         await message.channel.send(f"{message.author.mention} %s" % msg)
-                except:
+                except Exception as e:
+                    print(e)
                     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
 
             else:
