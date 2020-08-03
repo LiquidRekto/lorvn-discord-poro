@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import utilities
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
@@ -18,21 +19,21 @@ def getKeys():
 
 
 def addUserEconomyData(discord, amount):
-    cur.execute("SELECT discord FROM economy WHERE discord = '%s'" % discord)
+    cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
     check = cur.fetchone()
     if (check == None):
         cur.execute("SELECT id_num FROM id_get")
         results = cur.fetchone()
-        id = results[0]
+        wallet_id = results[0]
         command = (
-            "INSERT INTO economy (id, discord, snax)"
+            "INSERT INTO economy (wallet_id, discord_id, snax)"
             "VALUES (%s, %s, %s)"
         )
-        data = (id, discord, amount)
-        cur.execute("UPDATE id_get SET id_num=%s",(id+1,))
+        data = (wallet_id, discord_id, amount)
+        cur.execute("UPDATE id_get SET id_num=%s",(wallet_id+1,))
         cur.execute(command,data)
         conn.commit()
-        return {"id":id }
+        return {"wallet_id":wallet_id }
     else:
         return 'duplicated'
 
@@ -56,13 +57,13 @@ def addUserEconomyDataNew(discord_id, amount):
         return 'duplicated'
 
 
-def awardUser(id, amount):
+def awardUser(discord_id, amount):
     if id.isdigit():
-        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
         discord = (cur.fetchone())[0]
         key_str = getKeys()
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
         user = cur.fetchone()
         if (user == None):
             return "user-not-exist"
@@ -71,22 +72,22 @@ def awardUser(id, amount):
         elif (amount[0] == '-'):
             return "negative-number"
         else:
-            cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % id)
             currentAmnt = cur.fetchone()
             newAmnt = currentAmnt[0] + int(amount)
-            cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
+            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, id))
             conn.commit()
             return {"user":discord, "snax":amount}
     else:
         return "input-error"
 
-def fineUser(id, amount):
+def fineUser(discord_id, amount):
     if id.isdigit():
-        cur.execute("SELECT discord FROM economy WHERE id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
         discord = (cur.fetchone())[0]
         key_str = getKeys()
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-        cur.execute("SELECT id FROM economy WHERE id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
         user = cur.fetchone()
         if (user == None):
             return "user-not-exist"
@@ -95,17 +96,17 @@ def fineUser(id, amount):
         elif (amount[0] == '-'):
             return "negative-number"
         else:
-            cur.execute("SELECT snax FROM economy WHERE id = '%s'" % id)
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % id)
             currentAmnt = cur.fetchone()
             newAmnt = currentAmnt[0] - int(amount)
-            cur.execute("UPDATE economy SET snax = %s WHERE id = '%s'" % (newAmnt, id))
+            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, id))
             conn.commit()
             return {"user":discord, "snax":amount}
     else:
         return "input-error"
 
-def checkWalletInfoSelf(discord): #self
-    cur.execute("SELECT * FROM economy WHERE discord = '%s'" % (discord))
+def checkWalletInfoSelf(discord_id): #self
+    cur.execute("SELECT * FROM economy WHERE discord_id = '%s'" % (discord_id))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
@@ -113,16 +114,16 @@ def checkWalletInfoSelf(discord): #self
         return {"id":check[0], "snax":check[2], "discord":discord}
 
 def checkWalletInfoById(id):
-    cur.execute("SELECT * FROM economy WHERE id = '%s'" % (id))
+    cur.execute("SELECT * FROM economy WHERE discord_id = '%s'" % (id))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'
     else:
-        return { "discord":check[1], "snax":check[2] }
+        return { "discord_id":check[1], "snax":check[2] }
 
 def getSnaxInfo(discord): # self
 
-    cur.execute("SELECT snax FROM economy WHERE discord = '%s'" % (discord))
+    cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (discord))
     check = cur.fetchone()
     if (check == None):
         return 'non-exist'

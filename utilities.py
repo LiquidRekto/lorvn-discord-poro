@@ -1,4 +1,9 @@
 import os
+import discord
+
+def getUserDiscord(method, value):
+    if (method == "by_name"):
+        discord.utils.get()
 
 def getMergedStringChunks(array):
     merged = ""

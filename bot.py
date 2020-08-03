@@ -14,6 +14,14 @@ from discord.ext import commands
 
 inAdmin = os.environ['ADMIN']
 
+def getUserDiscordProperty(src, method, value):
+    if (method == "by_name"):
+        out = discord.utils.get(src.get_all_members(), name=value)
+        return out.id
+    if (method == "by_id"):
+        out_id = discord.utils.get(src.get_all_members(), id=int(value))
+        return out_id.name
+
 def authorIsAdmin(msg):
     identified = False
     for role in msg.author.roles:
@@ -159,7 +167,7 @@ async def on_message(message):
             embed_storage = []
             for func in funcs:
                 embed=discord.Embed(title=f"**{func['shop_func']}**", description=f"{func['func_desc']}" ,color=0x5a3030)
-                embed.add_field(name=f"Giá", value=f"{func['price']}", inline=True)
+                embed.add_field(name=f"Giá", value=f"{func['price']} Snax", inline=True)
                 embed.add_field(name=f"Thời lượng sử dụng", value=f"{func['dur']}", inline=True)
                 embed_storage.append(embed)
             await message.channel.send(f"{message.author.mention}\nChào mừng bạn đến với cửa hàng Poro!\nHiện tại tui đang có bán một số mặt hàng sau, bạn tham khảo nhé!\n\n")
@@ -169,13 +177,13 @@ async def on_message(message):
             ctx = message.content.split()
             if (len(ctx) < 2):
                 try:
-                    wallet_check = db_getter.checkWalletInfoSelf(str(message.author))
+                    wallet_check = db_getter.checkWalletInfoSelf(str(message.author.id))
                 except:
                     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                 if (wallet_check == 'non-exist'):
                     await message.channel.send(f"{message.author.mention} Bạn chưa có ví!")
                 else:
-                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["id"],wallet_check["snax"])
+                    msg = "\n *Thông tin ví:* \n ID của ví: **{}** \n Số Snax hiện có: **{}**".format(wallet_check["wallet_id"],wallet_check["snax"])
                     await message.channel.send(f"{message.author.mention} %s" % msg)
             else:
                 for status in ctx[1:]:
@@ -184,11 +192,11 @@ async def on_message(message):
 
                        # except:
                        #     await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
-                        wallet = db_getter.addUserEconomyData(str(message.author), 0)
+                        wallet = db_getter.addUserEconomyData(str(message.author.id), 0)
                         if wallet == 'duplicated':
                             await message.channel.send(f"{message.author.mention} Bạn đã tạo ví rồi! Vui lòng nhập **!wallet** để xem thông tin về ví của bạn hoặc **!wallet help** để biết thêm một số lệnh khác!")
                         else:
-                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['id']}")
+                            await message.channel.send(f"{message.author.mention} Bạn đã tạo ví mới! ID của ví bạn là: {wallet['wallet_id']}")
 
                     if status == 'testcreate': # Tạo ví
                        # try:
@@ -205,7 +213,7 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Hiện tại bạn không thể xoá ví!")
                     if status == 'snax': #Kiểm tra snax
                         try:
-                            snax = db_getter.getSnaxInfo(str(message.author))
+                            snax = db_getter.getSnaxInfo(str(message.author.id))
                         except:
                             await message.channel.send(f"{message.author.mention} Có trục trặc trong xử lý lệnh. Xin bạn thử lại!")
                         if (snax == 'non-exist'):
