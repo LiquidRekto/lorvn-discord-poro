@@ -58,12 +58,12 @@ def addUserEconomyDataNew(discord_id, amount):
 
 
 def awardUser(discord_id, amount):
-    if id.isdigit():
-        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
+    if discord_id is not None:
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
         discord = (cur.fetchone())[0]
         key_str = getKeys()
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
         user = cur.fetchone()
         if (user == None):
             return "user-not-exist"
@@ -72,22 +72,22 @@ def awardUser(discord_id, amount):
         elif (amount[0] == '-'):
             return "negative-number"
         else:
-            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % id)
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % discord_id)
             currentAmnt = cur.fetchone()
             newAmnt = currentAmnt[0] + int(amount)
-            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, id))
+            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, discord_id))
             conn.commit()
             return {"user":discord, "snax":amount}
     else:
         return "input-error"
 
 def fineUser(discord_id, amount):
-    if id.isdigit():
-        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
+    if discord_id is not None:
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
         discord = (cur.fetchone())[0]
         key_str = getKeys()
         LIMIT = int(key_str["SNAX_DIGIT_LIMIT"])
-        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % id)
+        cur.execute("SELECT discord_id FROM economy WHERE discord_id = '%s'" % discord_id)
         user = cur.fetchone()
         if (user == None):
             return "user-not-exist"
@@ -96,10 +96,10 @@ def fineUser(discord_id, amount):
         elif (amount[0] == '-'):
             return "negative-number"
         else:
-            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % id)
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % discord_id)
             currentAmnt = cur.fetchone()
             newAmnt = currentAmnt[0] - int(amount)
-            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, id))
+            cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (newAmnt, discord_id))
             conn.commit()
             return {"user":discord, "snax":amount}
     else:
