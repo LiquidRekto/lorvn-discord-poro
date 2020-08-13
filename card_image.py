@@ -3,7 +3,10 @@ import json
 
 response1 = json.loads(requests.get("http://dd.b.pvp.net/latest/set1/en_us/data/set1-en_us.json").text)
 response2 = json.loads(requests.get("http://dd.b.pvp.net/latest/set2/en_us/data/set2-en_us.json").text)
-response3 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/en_us/data/set3-en_us.json").text)
+try:
+    response3 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/en_us/data/set3-en_us.json").text)
+except Exception as e:
+    print(e)
 
 image_urls = {}
 
