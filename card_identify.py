@@ -14,7 +14,7 @@ for card in response1:
 
 for card in response2:
    cards_data[card['cardCode']] = { "Name": f"{card['name']}"}
-                                   
+
 try:
     for card in response3:
         cards_data[card['cardCode']] = { "Name": f"{card['name']}"}
@@ -22,4 +22,4 @@ except Exception as e:
     print(e)
 
 
-    
+
