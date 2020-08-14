@@ -183,6 +183,11 @@ def stealSnax(selfWallet, targetWallet, isOnline):
                 difference = times * math.floor(math.log(targetSnax,math.e))
                 selfSnax += difference
                 targetSnax -= difference
+
+                cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (selfSnax, selfWallet))
+                cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (targetSnax, targetWallet))
+                conn.commit()
+
                 return str(difference)
             else:
                 return 'unlucky'
