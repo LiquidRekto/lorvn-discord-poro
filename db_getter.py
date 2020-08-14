@@ -171,7 +171,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
     check = cur.fetchone()
     cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
     check_2 = cur.fetchone()
-    if (check_2 == 'None'):
+    if (check_2 == None):
         return 'non-exist'
     else:
         selfSnax = check[0]
