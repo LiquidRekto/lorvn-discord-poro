@@ -178,6 +178,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
         targetSnax = check_2[0]
         if (targetSnax > 0):
             number = random.randint(1,10)
+            print(number)
             if (number == 7):
                 difference = times * math.floor(math.log(targetSnax,math.e))
                 selfSnax += difference
