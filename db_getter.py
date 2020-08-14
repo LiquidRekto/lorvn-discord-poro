@@ -1,4 +1,6 @@
 import os
+import math
+import random
 import psycopg2
 import utilities
 
@@ -160,3 +162,27 @@ def removeShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
 
 def alterShopFunction(shop_func, sector): # UNDER CONSTRCUTION
     print('LUL')
+
+def stealSnax(selfWallet, targetWallet):
+    cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (selfWallet))
+    check = cur.fetchone()
+    cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
+    check_2 = cur.fetchone()
+    if (check == 'None'):
+        return 'non-exist'
+    else:
+        selfSnax = check[0]
+        targetSnax = check_2[0]
+        if (targetSnax > 0):
+            number = random.randint(1,10)
+            if (number == 7):
+                difference = math.floor(math.log(targetSnax,math.e))
+                selfSnax += difference
+                targetSnax -= difference
+                return str(difference)
+            else:
+                return 'unlucky'
+        else:
+            return 'no-snax'
+
+

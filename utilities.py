@@ -12,3 +12,4 @@ def getMergedStringChunks(array):
         if (array.index(chunk) < len(array) - 1):
             merged += " "
     return merged
+
