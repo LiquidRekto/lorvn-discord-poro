@@ -167,7 +167,7 @@ async def on_message(message):
             ctx = message.content.split()
             if len(ctx) > 1:
                 if (len(message.mentions) > 0):
-                    result = db_getter.stealSnax(message.author.id,message.mentions[0].id)
+                    result = db_getter.stealSnax(message.author.id,message.mentions[0].id,message.mentions[0].presence.status is 'online')
                     if (result == 'non-exist'):
                         await message.channel.send(f"{message.author.mention} Người dùng mà bạn muốn cướp snax không tồn tại hoặc chưa có ví!")
                     elif (result == 'no-snax'):

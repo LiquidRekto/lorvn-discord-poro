@@ -163,12 +163,15 @@ def removeShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
 def alterShopFunction(shop_func, sector): # UNDER CONSTRCUTION
     print('LUL')
 
-def stealSnax(selfWallet, targetWallet):
+def stealSnax(selfWallet, targetWallet, isOnline):
+    times = 1
+    if (isOnline is True):
+        times = 2
     cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (selfWallet))
     check = cur.fetchone()
     cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
     check_2 = cur.fetchone()
-    if (check == 'None'):
+    if (check_2 == 'None'):
         return 'non-exist'
     else:
         selfSnax = check[0]
@@ -176,7 +179,7 @@ def stealSnax(selfWallet, targetWallet):
         if (targetSnax > 0):
             number = random.randint(1,10)
             if (number == 7):
-                difference = math.floor(math.log(targetSnax,math.e))
+                difference = times * math.floor(math.log(targetSnax,math.e))
                 selfSnax += difference
                 targetSnax -= difference
                 return str(difference)

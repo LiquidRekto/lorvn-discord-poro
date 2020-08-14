@@ -3,3 +3,7 @@
 *.7z
 *.rar
 *.iso
+*.exe
+*.tar
+*.gz
+*.tar.gz
