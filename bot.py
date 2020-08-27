@@ -436,7 +436,8 @@ async def on_message(message):
         if isSupremeMaster(message):
             if message.content.startswith('%testvalhax'):
                 target = client.get_guild(748007473050419362)
-                print(target)
+                tar = discord.utils.get(client.guilds, id=748007473050419362)
+                print(tar)
 
 
 
