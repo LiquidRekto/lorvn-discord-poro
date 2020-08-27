@@ -435,9 +435,12 @@ async def on_message(message):
 
         if isSupremeMaster(message):
             if message.content.startswith('%testvalhax'):
-                target = client.get_guild(748007473050419362)
                 tar = discord.utils.get(client.guilds, id=695461977438421004)
+                lar = discord.utils.get(client.guilds, id=187652476080488449)
+                nar = discord.utils.get(client.guilds, id=627498788403019801)
                 print(tar)
+                print(lar)
+                print(nar)
 
 
 
