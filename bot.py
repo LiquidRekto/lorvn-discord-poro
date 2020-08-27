@@ -436,7 +436,7 @@ async def on_message(message):
         if isSupremeMaster(message):
             if message.content.startswith('%testvalhax'):
                 target = client.get_guild(748007473050419362)
-                await message.channel.send(f"Targetted server name: {target.name}")
+                print(target)
 
 
 
