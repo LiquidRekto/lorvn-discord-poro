@@ -32,6 +32,15 @@ def authorIsAdmin(msg):
     if identified == False:
         return False
 
+def isSupremeMaster(msg):
+    identified = False
+    for role in msg.author.roles:
+        if (role.name == "SupremeMaster"):
+            identified = True
+            return True
+    if identified == False:
+        return False
+
 def checkEligibility(msg):
     identified = False
     if len(msg.author.roles) > 0:
@@ -423,6 +432,11 @@ async def on_message(message):
 
                     if status == "remove":
                         print()
+
+        if isSupremeMaster(message):
+            if message.content.startswith('%testvalhax'):
+                target = client.get_guild(748007473050419362)
+                await message.channel.send(f"Targetted server name: {target.name}")
 
 
 
