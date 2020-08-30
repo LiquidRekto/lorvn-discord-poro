@@ -187,7 +187,7 @@ async def on_message(message):
             await message.channel.send("Nào...BUỒN!")
 
         if message.content.startswith('!steal'):
-            if isSupremeMaster(message):
+            #if isSupremeMaster(message):
                 ctx = message.content.split()
                 if len(ctx) > 1:
                     if (len(message.mentions) > 0):
