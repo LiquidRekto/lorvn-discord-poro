@@ -25,14 +25,14 @@ def dateTimeAddTime(timeObject, adays, ahours, aminutes, aseconds):
         return 'invalid'
     else:
         converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %Z')
-        return datetime.strftime((timeObject + timedelta(days = adays, hours = ahours, minutes = aminutes, seconds = aseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
+        return datetime.strftime((converted_time + timedelta(days = adays, hours = ahours, minutes = aminutes, seconds = aseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
 
 def dateTimeSubtractTime(timeObject, sdays, shours, sminutes, sseconds):
     if (shours < 0 or sminutes < 0 or sseconds < 0 or sdays < 0):
         return 'invalid'
     else:
         converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %Z')
-        return datetime.strftime((timeObject + timedelta(days = sdays, hours = shours, minutes = sminutes, seconds = sseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
+        return datetime.strftime((converted_time + timedelta(days = sdays, hours = shours, minutes = sminutes, seconds = sseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
 
 def dateTimeIsExpired(timeString):
     time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %Z')
