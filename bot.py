@@ -183,27 +183,29 @@ async def on_message(message):
          # Kiểm tra ví
         if message.content.startswith('!poke'):
             await message.channel.send("Nào...BUỒN!")
+
         if message.content.startswith('!steal'):
-            ctx = message.content.split()
-            if len(ctx) > 1:
-                if (len(message.mentions) > 0):
-                    result = db_getter.stealSnax(message.author.id,message.mentions[0].id,message.mentions[0].status is 'online')
-                    if (result == 'non-exist'):
-                        await message.channel.send(f"{message.author.mention} Người dùng mà bạn muốn cướp snax không tồn tại hoặc chưa có ví!")
-                    elif (result == 'no-snax'):
-                        await message.channel.send(f"{message.author.mention} Hmm người đó rỗng túi rồi, thôi chọn người khác đi :>")
-                    elif (result == 'unlucky'):
-                        await message.channel.send(f"{message.author.mention} Úi, trượt rồi! Chúc bạn may mắn lần sau!")
-                    elif (result == 'cooldowned'):
-                        await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 1 phút :>")
-                    elif (result == 'limit-reached'):
+            if isSupremeMaster(message):
+                ctx = message.content.split()
+                if len(ctx) > 1:
+                    if (len(message.mentions) > 0):
+                        result = db_getter.stealSnax(message.author.id,message.mentions[0].id,message.mentions[0].status is 'online')
+                        if (result == 'non-exist'):
+                            await message.channel.send(f"{message.author.mention} Người dùng mà bạn muốn cướp snax không tồn tại hoặc chưa có ví!")
+                        elif (result == 'no-snax'):
+                            await message.channel.send(f"{message.author.mention} Hmm người đó rỗng túi rồi, thôi chọn người khác đi :>")
+                        elif (result == 'unlucky'):
+                            await message.channel.send(f"{message.author.mention} Úi, trượt rồi! Chúc bạn may mắn lần sau!")
+                        elif (result == 'cooldowned'):
+                            await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 1 phút :>")
+                        elif (result == 'limit-reached'):
                         await message.channel.send(f"{message.author.mention} Bạn đã đạt giới hạn cướp snax trong ngày! (10 lần cướp)")
+                        else:
+                            await message.channel.send(f"{message.author.mention} Bạn đã cướp thành công **%s Snax** từ **%s**!" % (result, message.mentions[0].name))
                     else:
-                        await message.channel.send(f"{message.author.mention} Bạn đã cướp thành công **%s Snax** từ **%s**!" % (result, message.mentions[0].name))
+                        await message.channel.send(f"{message.author.mention} Phép màu sẽ không thành hiện thực nếu bạn không **Mention**! UwU")
                 else:
-                    await message.channel.send(f"{message.author.mention} Phép màu sẽ không thành hiện thực nếu bạn không **Mention**! UwU")
-            else:
-                await message.channel.send(f"{message.author.mention} Bạn hem thể cướp được gì nếu bạn chỉ hô thôi mà không thực hiện :>")
+                    await message.channel.send(f"{message.author.mention} Bạn hem thể cướp được gì nếu bạn chỉ hô thôi mà không thực hiện :>")
         if message.content.startswith('!shop') and checkEligibility(message) is True:
             funcs = db_getter.getShopFunctionsList()
             embed_storage = []
