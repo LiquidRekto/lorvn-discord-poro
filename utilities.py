@@ -38,6 +38,8 @@ def dateTimeIsExpired(timeString):
     time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %Z')
     time_now = datetime.strptime(getCurrentDatetime(), '%Y-%m-%d %H:%M:%S.%f %Z')
     delta = time_target - time_now
+    print (f"TIME_IN_DATABASE: {time_target}")
+    print (f"TIME_TRIGGERED: {time_now}")
     print(delta.days)
     if (delta.days < 0):
         return True
