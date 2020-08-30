@@ -168,6 +168,7 @@ def resetSteal():
     conn.commit()
 
 def stealSnax(selfWallet, targetWallet, isOnline):
+    result = ''
     cur.execute("SELECT steal_cd FROM economy WHERE discord_id = '%s'" % (selfWallet))
     cooldownFinished = utilities.dateTimeIsExpired(cur.fetchone()[0])
     cur.execute("SELECT steal_count FROM economy WHERE discord_id = '%s'" % (selfWallet))
@@ -184,7 +185,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
             cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
             check_2 = cur.fetchone()
             if (check_2 == None):
-                return 'non-exist'
+                result = 'non-exist'
             else:
                 selfSnax = check[0]
                 targetSnax = check_2[0]
@@ -200,19 +201,21 @@ def stealSnax(selfWallet, targetWallet, isOnline):
                         cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (targetSnax, targetWallet))
                         conn.commit()
 
-                        return str(difference)
+                        result = str(difference)
                     else:
-                        return 'unlucky'
+                        result = 'unlucky'
                 else:
-                    return 'no-snax'
+                    result = 'no-snax'
                 new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,1,0)
                 cur.execute("UPDATE economy SET steal_cd = %s WHERE discord_id = '%s'" % (new_cd, selfWallet))
                 cur.execute("UPDATE economy SET steal_count = %s WHERE discord_id = '%s'" % (stealCount+1, selfWallet))
                 conn.commit()
         else:
-            return 'limit-reached'
+            result = 'limit-reached'
     else:
-        return 'cooldowned'
+        result = 'cooldowned'
+
+    return result
 
 
 
