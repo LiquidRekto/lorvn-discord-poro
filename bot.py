@@ -199,7 +199,7 @@ async def on_message(message):
                         elif (result == 'unlucky'):
                             await message.channel.send(f"{message.author.mention} Úi, trượt rồi! Chúc bạn may mắn lần sau!")
                         elif (result == 'cooldowned'):
-                            await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 1 phút :>")
+                            await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 3 phút :>")
                         elif (result == 'limit-reached'):
                             await message.channel.send(f"{message.author.mention} Bạn đã đạt giới hạn cướp snax trong ngày! (10 lần cướp)")
                         else:
