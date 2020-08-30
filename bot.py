@@ -139,6 +139,8 @@ async def on_ready():
     scheduler.add_job(resetStealCount, CronTrigger(hour="0", minute="0", second="0", timezone="UTC"))
     #scheduler.start()
 
+
+@client.event
 async def on_message(message):
     if message.author.bot:
         return
