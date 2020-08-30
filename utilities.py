@@ -35,8 +35,8 @@ def dateTimeSubtractTime(timeObject, sdays, shours, sminutes, sseconds):
         return datetime.strftime((converted_time + timedelta(days = sdays, hours = shours, minutes = sminutes, seconds = sseconds)),'%Y-%m-%d %H:%M:%S.%f').strip()
 
 def dateTimeIsExpired(timeString):
-    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f').strip()
-    time_now = datetime.strptime(getCurrentDatetime(), '%Y-%m-%d %H:%M:%S.%f').strip()
+    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f')
+    time_now = datetime.strptime(getCurrentDatetime(), '%Y-%m-%d %H:%M:%S.%f')
     delta = time_target - time_now
     print (f"TIME_IN_DATABASE: {time_target}")
     print (f"TIME_TRIGGERED: {time_now}")
