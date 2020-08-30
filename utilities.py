@@ -15,7 +15,7 @@ def getMergedStringChunks(array):
     return merged
 
 def getCurrentDatetime():
-    return str(datetime.now(timezone.utc))
+    return datetime.strftime((datetime.now(timezone.utc)),'%Y-%m-%d %H:%M:%S.%f %Z')
 
 #def returnSpecificTime(date, hour, minute, seconds):
  #   return datetime()
@@ -33,7 +33,7 @@ def dateTimeSubtractTime(timeObject, sdays, shours, sminutes, sseconds):
         return str(timeObject + timedelta(days = sdays, hours = shours, minutes = sminutes, seconds = sseconds))
 
 def dateTimeIsExpired(timeString):
-    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f%Z')
+    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %Z')
     delta = time_target - datetime.now(timezone.utc)
     if (delta.days < 0):
         return True
