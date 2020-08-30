@@ -28,10 +28,10 @@ def addUserEconomyData(discord_id, amount):
         results = cur.fetchone()
         wallet_id = results[0]
         command = (
-            "INSERT INTO economy (wallet_id, discord_id, snax)"
-            "VALUES (%s, %s, %s)"
+            "INSERT INTO economy (wallet_id, discord_id, snax, steal_cd, steal_count)"
+            "VALUES (%s, %s, %s, %s, %s)"
         )
-        data = (wallet_id, discord_id, amount)
+        data = (wallet_id, discord_id, amount, utilities.getCurrentDatetime(), 0)
         cur.execute("UPDATE id_get SET id_num=%s",(wallet_id+1,))
         cur.execute(command,data)
         conn.commit()
@@ -163,35 +163,55 @@ def removeShopFunction(shop_func, func_desc, price, dur): # UNDER CONSTRCUTION
 def alterShopFunction(shop_func, sector): # UNDER CONSTRCUTION
     print('LUL')
 
+def resetSteal():
+    cur.execute("UPDATE economy SET steal_count = '0'")
+    conn.commit()
+
 def stealSnax(selfWallet, targetWallet, isOnline):
-    times = 1
-    if (isOnline is True):
-        times = 2
-    cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (selfWallet))
-    check = cur.fetchone()
-    cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
-    check_2 = cur.fetchone()
-    if (check_2 == None):
-        return 'non-exist'
-    else:
-        selfSnax = check[0]
-        targetSnax = check_2[0]
-        if (targetSnax > 0):
-            number = random.randint(1,10)
-            print(number)
-            if (number == 7):
-                difference = times * math.floor(math.log(targetSnax,math.e))
-                selfSnax += difference
-                targetSnax -= difference
+    cur.execute("SELECT steal_cd FROM economy WHERE discord_id = '%s'" % (selfWallet))
+    cooldownFinished = utilities.dateTimeIsExpired(cur.fetchone()[0])
+    cur.execute("SELECT steal_count FROM economy WHERE discord_id = '%s'" % (selfWallet))
+    stealCount = cur.fetchone[0]
 
-                cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (selfSnax, selfWallet))
-                cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (targetSnax, targetWallet))
-                conn.commit()
 
-                return str(difference)
+    if (cooldownFinished is True):
+        if (stealCount > 10):
+            times = 1
+            if (isOnline is True):
+                times = 2
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (selfWallet))
+            check = cur.fetchone()
+            cur.execute("SELECT snax FROM economy WHERE discord_id = '%s'" % (targetWallet))
+            check_2 = cur.fetchone()
+            if (check_2 == None):
+                return 'non-exist'
             else:
-                return 'unlucky'
+                selfSnax = check[0]
+                targetSnax = check_2[0]
+                if (targetSnax > 0):
+                    number = random.randint(1,10)
+                    print(number)
+                    if (number == 2 or number == 5 or number == 8):
+                        difference = times * math.floor(math.log(targetSnax,math.e))
+                        selfSnax += difference
+                        targetSnax -= difference
+
+                        cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (selfSnax, selfWallet))
+                        cur.execute("UPDATE economy SET snax = %s WHERE discord_id = '%s'" % (targetSnax, targetWallet))
+                        conn.commit()
+
+                        return str(difference)
+                    else:
+                        return 'unlucky'
+                else:
+                    return 'no-snax'
+                new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,1,0)
+                cur.execute("UPDATE economy SET steal_cd = %s WHERE discord_id = '%s'" % (new_cd, targetWallet))
+                cur.execute("UPDATE economy SET steal_count = %s WHERE discord_id = '%s'" % (new_cd, targetWallet))
         else:
-            return 'no-snax'
+            return 'limit-reached'
+    else:
+        return 'cooldowned'
+
 
 

@@ -9,6 +9,8 @@ import permissions
 import utilities
 
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 from lor_deckcodes import LoRDeck
 from discord.ext import commands
 
@@ -127,7 +129,16 @@ def deckCompiler(deckcode):
 bot = commands.Bot(command_prefix='%')
 client = discord.Client()
 
+async def resetStealCount():
+    db_getter.resetSteal()
+    print('Count has been reset')
+
 @client.event
+async def on_ready():
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(resetStealCount, CronTrigger(hour="24", minute="0", second="0", timezone="UTC"))
+    scheduler.start()
+
 async def on_message(message):
     if message.author.bot:
         return
@@ -183,6 +194,10 @@ async def on_message(message):
                         await message.channel.send(f"{message.author.mention} Hmm người đó rỗng túi rồi, thôi chọn người khác đi :>")
                     elif (result == 'unlucky'):
                         await message.channel.send(f"{message.author.mention} Úi, trượt rồi! Chúc bạn may mắn lần sau!")
+                    elif (result == 'cooldowned'):
+                        await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 1 phút :>")
+                    elif (result == 'limit-reached'):
+                        await message.channel.send(f"{message.author.mention} Bạn đã đạt giới hạn cướp snax trong ngày! (10 lần cướp)")
                     else:
                         await message.channel.send(f"{message.author.mention} Bạn đã cướp thành công **%s Snax** từ **%s**!" % (result, message.mentions[0].name))
                 else:
