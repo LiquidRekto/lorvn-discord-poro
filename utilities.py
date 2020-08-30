@@ -15,7 +15,7 @@ def getMergedStringChunks(array):
     return merged
 
 def getCurrentDatetime():
-    return datetime.strftime((datetime.now(timezone.utc)),'%Y-%m-%d %H:%M:%S.%f %Z')
+    return datetime.strftime((datetime.now(timezone.utc)),'%Y-%m-%d %H:%M:%S.%f %z')
 
 #def returnSpecificTime(date, hour, minute, seconds):
  #   return datetime()
@@ -24,19 +24,19 @@ def dateTimeAddTime(timeObject, adays, ahours, aminutes, aseconds):
     if (ahours < 0 or aminutes < 0 or aseconds < 0 or adays < 0):
         return 'invalid'
     else:
-        converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %Z')
+        converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %z')
         return datetime.strftime((converted_time + timedelta(days = adays, hours = ahours, minutes = aminutes, seconds = aseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
 
 def dateTimeSubtractTime(timeObject, sdays, shours, sminutes, sseconds):
     if (shours < 0 or sminutes < 0 or sseconds < 0 or sdays < 0):
         return 'invalid'
     else:
-        converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %Z')
+        converted_time = datetime.strptime(timeObject, '%Y-%m-%d %H:%M:%S.%f %z')
         return datetime.strftime((converted_time + timedelta(days = sdays, hours = shours, minutes = sminutes, seconds = sseconds)),'%Y-%m-%d %H:%M:%S.%f %Z')
 
 def dateTimeIsExpired(timeString):
-    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %Z')
-    time_now = datetime.strptime(getCurrentDatetime(), '%Y-%m-%d %H:%M:%S.%f %Z')
+    time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %z')
+    time_now = datetime.strptime(getCurrentDatetime(), '%Y-%m-%d %H:%M:%S.%f %z')
     delta = time_target - time_now
     print (f"TIME_IN_DATABASE: {time_target}")
     print (f"TIME_TRIGGERED: {time_now}")
