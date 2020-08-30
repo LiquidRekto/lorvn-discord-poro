@@ -171,7 +171,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
     cur.execute("SELECT steal_cd FROM economy WHERE discord_id = '%s'" % (selfWallet))
     cooldownFinished = utilities.dateTimeIsExpired(cur.fetchone()[0])
     cur.execute("SELECT steal_count FROM economy WHERE discord_id = '%s'" % (selfWallet))
-    stealCount = cur.fetchone[0]
+    stealCount = cur.fetchone()[0]
 
 
     if (cooldownFinished is True):
