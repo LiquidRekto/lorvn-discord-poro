@@ -34,7 +34,7 @@ def dateTimeSubtractTime(timeObject, sdays, shours, sminutes, sseconds):
 
 def dateTimeIsExpired(timeString):
     time_target = datetime.strptime(timeString, '%Y-%m-%d %H:%M:%S.%f %Z')
-    delta = time_target - datetime.now(timezone.utc)
+    delta = time_target - getCurrentDatetime()
     if (delta.days < 0):
         return True
     else:
