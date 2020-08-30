@@ -175,7 +175,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
 
 
     if (cooldownFinished is True):
-        if (stealCount > 10):
+        if (stealCount < 10):
             times = 1
             if (isOnline is True):
                 times = 2
