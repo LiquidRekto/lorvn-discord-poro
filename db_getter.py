@@ -169,6 +169,11 @@ def resetSteal():
 
 def stealSnax(selfWallet, targetWallet, isOnline):
     result = ''
+    key_str = getKeys()
+
+    STEAL_COOLDOWN = int(key_str['STEAL_COOLDOWN'])
+    STEAL_DAILY_LIMIT = int(key_str['STEAL_DAILY_LIMIT'])
+
     cur.execute("SELECT steal_cd FROM economy WHERE discord_id = '%s'" % (selfWallet))
     cooldownFinished = utilities.dateTimeIsExpired(cur.fetchone()[0])
     cur.execute("SELECT steal_count FROM economy WHERE discord_id = '%s'" % (selfWallet))
@@ -176,7 +181,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
 
 
     if (cooldownFinished is True):
-        if (stealCount < 20):
+        if (stealCount < STEAL_DAILY_LIMIT):
             times = 1
             if (isOnline is True):
                 times = 2
@@ -206,7 +211,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
                         result = 'unlucky'
                 else:
                     result = 'no-snax'
-                new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,3,0)
+                new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,STEAL_COOLDOWN,0)
                 cur.execute("UPDATE economy SET steal_cd = '%s' WHERE discord_id = '%s'" % (new_cd, selfWallet))
                 cur.execute("UPDATE economy SET steal_count = %s WHERE discord_id = '%s'" % (stealCount+1, selfWallet))
                 conn.commit()
