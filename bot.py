@@ -136,7 +136,7 @@ async def resetStealCount():
 @client.event
 async def on_ready():
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(resetStealCount, CronTrigger(hour="24", minute="0", second="0", timezone="UTC"))
+    scheduler.add_job(resetStealCount, CronTrigger(hour="0", minute="0", second="0", timezone="UTC"))
     scheduler.start()
 
 async def on_message(message):
