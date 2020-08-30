@@ -176,7 +176,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
 
 
     if (cooldownFinished is True):
-        if (stealCount < 10):
+        if (stealCount < 20):
             times = 1
             if (isOnline is True):
                 times = 2
@@ -206,7 +206,7 @@ def stealSnax(selfWallet, targetWallet, isOnline):
                         result = 'unlucky'
                 else:
                     result = 'no-snax'
-                new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,1,0)
+                new_cd = utilities.dateTimeAddTime(utilities.getCurrentDatetime(),0,0,3,0)
                 cur.execute("UPDATE economy SET steal_cd = '%s' WHERE discord_id = '%s'" % (new_cd, selfWallet))
                 cur.execute("UPDATE economy SET steal_count = %s WHERE discord_id = '%s'" % (stealCount+1, selfWallet))
                 conn.commit()
