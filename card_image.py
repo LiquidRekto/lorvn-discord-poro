@@ -1,10 +1,10 @@
 import requests
 import json
 
-response1 = json.loads(requests.get("http://dd.b.pvp.net/latest/set1/en_us/data/set1-en_us.json").text)
-response2 = json.loads(requests.get("http://dd.b.pvp.net/latest/set2/en_us/data/set2-en_us.json").text)
+response1 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/vi_vn/data/set1-vi_vn.json").text)
+response2 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/vi_vn/data/set2-vi_vn.json").text)
 try:
-    response3 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/en_us/data/set3-en_us.json").text)
+    response3 = json.loads(requests.get("http://dd.b.pvp.net/latest/set3/vi_vn/data/set3-vi_vn.json").text)
 except Exception as e:
     print(e)
 
