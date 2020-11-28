@@ -87,6 +87,7 @@ def regionEmote(reg, cli):
         'Ionia':'704619522706898996',
         'PiltoverZaun':'704619522715418737',
         'ShadowIsles':'704619523172597860'
+        'Targon':'782238199845093376'
     }
     defined = False
     target = None
