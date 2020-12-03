@@ -13,19 +13,19 @@ image_urls = {}
 for card in response1:
     image_urls.setdefault(card['name'], [])
     source = (card['assets'])[0]
-    if card['levelupDescription'] == "" and card['rarity'] == "Không có":
+    if card['levelupDescription'] == "" and card['rarityRef'] == "None":
         image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    elif card['levelupDescription'] != "" and card['rarity'] == "Anh Hùng":
+    elif card['levelupDescription'] != "" and card['rarityRef'] == "Champion":
         image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    elif card['rarity'] != "Anh Hùng":
+    elif card['rarityRef'] != "Champion":
         image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
 
 for card in response2:
     image_urls.setdefault(card['name'], [])
     source = (card['assets'])[0]
-    if card['levelupDescription'] == "" and card['rarity'] == "Không có":
+    if card['levelupDescription'] == "" and card['rarityRef'] == "None":
         image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-    elif card['levelupDescription'] != "" and card['rarity'] == "Anh Hùng":
+    elif card['levelupDescription'] != "" and card['rarityRef'] == "Champion":
         image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
     else:
         image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
@@ -34,9 +34,9 @@ try:
     for card in response3:
         image_urls.setdefault(card['name'], [])
         source = (card['assets'])[0]
-        if card['levelupDescription'] == "" and card['rarity'] == "Không có":
+        if card['levelupDescription'] == "" and card['rarityRef'] == "None":
             image_urls[card['name']].append({"isLevelledUp": True, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
-        elif card['levelupDescription'] != "" and card['rarity'] == "Anh Hùng":
+        elif card['levelupDescription'] != "" and card['rarityRef'] == "Champion":
             image_urls[card['name']].append({"isLevelledUp": False, "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
         else:
             image_urls[card['name']].append({ "CardArt": f"{source['gameAbsolutePath']}", "FullArt": f"{source['fullAbsolutePath']}" })
