@@ -137,7 +137,7 @@ async def resetStealCount():
 @client.event
 async def on_ready():
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(resetStealCount, CronTrigger(hour="0", minute="0", second="0", timezone="UTC"))
+    scheduler.add_job(resetStealCount, CronTrigger(hour="7", minute="0", second="0", timezone="UTC"))
     scheduler.start()
 
 
@@ -200,16 +200,16 @@ async def on_message(message):
                         elif (result == 'unlucky'):
                             await message.channel.send(f"{message.author.mention} Úi, trượt rồi! Chúc bạn may mắn lần sau!")
                         elif (result == 'cooldowned'):
-                            await message.channel.send(f"{message.author.mention} Bình tĩnh bro, còn chưa hết 3 phút :>")
+                            await message.channel.send(f"{message.author.mention} Vội thế bạn, từ từ đi chứ, đợi 3 phút đã :>")
                         elif (result == 'limit-reached'):
-                            await message.channel.send(f"{message.author.mention} Bạn đã đạt giới hạn cướp snax trong ngày! (10 lần cướp)")
+                            await message.channel.send(f"{message.author.mention} Ui bạn lộng hành quá nên bị giới hạn rùi! (10 lần cướp)")
                         else:
                             await message.channel.send(f"{message.author.mention} Bạn đã cướp thành công **%s Snax** từ **%s**!" % (result, message.mentions[0].name))
                     else:
                         await message.channel.send(f"{message.author.mention} Phép màu sẽ không thành hiện thực nếu bạn không **Mention**! UwU")
                 else:
                     await message.channel.send(f"{message.author.mention} Bạn hem thể cướp được gì nếu bạn chỉ hô thôi mà không thực hiện :>")
-        if message.content.startswith('!shop') and checkEligibility(message) is True:
+        if message.content.startswith('!nomoreshop') and checkEligibility(message) is True:
             funcs = db_getter.getShopFunctionsList()
             embed_storage = []
             for func in funcs:
