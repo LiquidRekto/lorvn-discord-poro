@@ -28,7 +28,7 @@ def getUserDiscordProperty(src, method, value):
 def authorIsAdmin(msg):
     identified = False
     for role in msg.author.roles:
-        if (role.name == "admin") or (role.name == inAdmin) or (role.name == "SupremeMaster"):
+        if (role.name == "Admin") or (role.name == inAdmin) or (role.name == "Quản Trò") or (role.name == "SupremeMaster"):
             identified = True
             return True
     if identified == False:
