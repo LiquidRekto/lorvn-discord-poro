@@ -187,7 +187,7 @@ async def on_message(message):
         if message.content.startswith('!poke'):
             await message.channel.send("Nào...BUỒN!")
 
-        if message.content.startswith('!steal'):
+        if message.content.startswith('!antrom'):
             #if isSupremeMaster(message):
                 ctx = message.content.split()
                 if len(ctx) > 1:
